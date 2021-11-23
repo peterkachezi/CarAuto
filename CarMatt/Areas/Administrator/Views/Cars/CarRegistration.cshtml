@@ -1,0 +1,424 @@
+﻿
+@{
+    ViewData["Title"] = "CarRegistration";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2 class="Header">Create Product </h2>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <form enctype="multipart/form-data" method="post" asp-controller="Home" asp-action="UploadFile">
+            <dl>
+                <dt>
+                    <label>Upload</label>
+                </dt>
+                <dd>
+                    <input type="file" name="FormFile" id="FormFile">
+
+                </dd>
+            </dl>
+            <input class="btn" type="submit" value="Upload" />
+        </form>
+        @*<form id="frmCreateProduct" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+
+
+            <div class="col-md-12">
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Price</label>
+                    <div class="">
+                        <input id="txtName" class="form-control" type="text" name="Price">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Make</label>
+                    <div class="">
+                        <input id="txtCostPrice" class="form-control numericOnly" type="text" name="Make">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Availability Status</label>
+                    <div class="">
+                        <input id="txtSellingPrice" class="form-control numericOnly" type="text" name="AvailabilityStatus">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Model</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="Model">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Kilometres</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="Kilometres">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">BodyType</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="BodyType">
+                    </div>
+                </div>
+
+            </div>
+
+     
+
+
+            <div class="col-md-12">
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">StyleTrim</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="StyleTrim">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Engine</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="Engine">
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Drivetrain</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="Drivetrain">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Transmission</label>
+                    <div class=" ">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="Transmission">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">ExteriorColor</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="ExteriorColor">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">InteriorColor</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="InteriorColor">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Passangers</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="Passangers">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">FuelType</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="FuelType">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">CityFuelEconomy</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="CityFuelEconomy">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12">
+
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">HighWayFuelEconomy</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="HighWayFuelEconomy">
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">HighWayFuelEconomy</label>
+                    <div class="">
+                        <input id="txtReOrderLevel" class="form-control numericOnly" type="file" name="HighWayFuelEconomy">
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-12">
+                <div class="ln_solid"></div>
+                <div class="item form-group">
+                    <div class=" offset-md-3">
+
+                        <button class="btn btn-danger" type="reset">Reset</button>
+                        <button type="button" id="btnSubmit" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+                </div>
+
+
+
+        </form>*@
+    </div>
+</div>
+
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+<style>
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<link href="~/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/sweetalart/sweetalert.min.js"></script>
+
+
+
+<script>
+
+
+    function OpenProductPackingForm() {
+        $("#ModalCreateProductPacking").modal('show');
+    }
+
+
+    $("#btnSubmit").click(function () {
+
+        if ($('#txtCostPrice').val() == '') {
+            $('#txtCostPrice').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Cost Price is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtSellingPrice').val() == '') {
+            $('#txtSellingPrice').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Selling Price is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        $("#ModalCreateProduct").modal('hide');
+
+        $("#divLoader").show();
+
+        var data = $("#frmCreateProduct").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/Product/Create",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { window.location = "/Administrator/Product/"; }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    })
+
+
+    $("#btnSubmitPacking").click(function () {
+
+        if ($('#txtName').val() == '') {
+            $('#txtName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+
+
+        $("#ModalCreateProductPacking").modal('hide');
+
+        var data = $("#frmCreateProductPacking").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/Packaging/Create",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    })
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+    //Disable paste
+    $(".numericOnly").bind("paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(".numericOnly").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "")
+            $(this).val(val);
+        }
+    });
+
+
+
+
+
+
+</script>
+
+

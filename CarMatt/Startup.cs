@@ -3,6 +3,7 @@
 using CarMatt.Data.Models;
 using CarMatt.Data.Services.AgentModule;
 using CarMatt.Data.Services.CountyModule;
+using CarMatt.Data.Services.VehicleModule;
 using CarMatt.EmailServiceModule;
 using CarMatt.Helpers;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +45,7 @@ namespace CarMatt
             services.AddScoped<IAgentService, AgentService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ICountyService, CountyService>();
+            services.AddScoped<IVehicleService, VehicleService>();
 
 
 
