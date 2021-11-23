@@ -2,6 +2,7 @@
 
 using CarMatt.Data.Models;
 using CarMatt.Data.Services.AgentModule;
+using CarMatt.Data.Services.CountyModule;
 using CarMatt.EmailServiceModule;
 using CarMatt.Helpers;
 using Microsoft.AspNetCore.Builder;
@@ -37,12 +38,12 @@ namespace CarMatt
             services.AddRazorPages();
             services.AddMvc();
 
-           // services.AddDbContext<ApplicationDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, ApplicationUserClaimsPrincipalFactory>();
             services.AddScoped<IAgentService, AgentService>();
             services.AddScoped<IEmailService, EmailService>();
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
+            services.AddScoped<ICountyService, CountyService>();
 
 
 

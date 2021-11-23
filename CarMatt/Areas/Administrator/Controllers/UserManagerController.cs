@@ -2,6 +2,7 @@
 using CarMatt.Data.DTOs.ApplicationUserServiceModule;
 using CarMatt.Data.Models;
 using CarMatt.Data.Services.AgentModule;
+using CarMatt.Data.Services.CountyModule;
 using CarMatt.EmailServiceModule;
 using CarMatt.Helpers;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,8 @@ namespace CarMatt.Areas.Administrator.Controllers
 
         private readonly IAgentService  agentService;
 
+        private readonly ICountyService  countyService;
+
 
         private readonly IConfiguration config;
 
@@ -38,7 +41,7 @@ namespace CarMatt.Areas.Administrator.Controllers
 
         public UserManagerController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
 
-        RoleManager<IdentityRole> roleManager, IEmailService emailService,  IConfiguration config, IWebHostEnvironment env, IAgentService agentService)
+        RoleManager<IdentityRole> roleManager, IEmailService emailService,  IConfiguration config, IWebHostEnvironment env, IAgentService agentService, ICountyService countyService)
         {
             this.userManager = userManager;
 
@@ -50,6 +53,8 @@ namespace CarMatt.Areas.Administrator.Controllers
 
             this.emailService = emailService;
 
+            this.countyService = countyService;
+
             this.config = config;
 
             this.env = env;
@@ -58,8 +63,9 @@ namespace CarMatt.Areas.Administrator.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Roles = await roleManager.Roles.ToListAsync();
-              
 
+            ViewBag.Counties = await countyService.GetAll();
+              
             return View();
         }  
         
@@ -136,6 +142,8 @@ namespace CarMatt.Areas.Administrator.Controllers
                     UserName = registerDTO.Email,
 
                     Email = registerDTO.Email,
+
+                    isActive = true,
 
                     PhoneNumber = registerDTO.PhoneNumber,
 

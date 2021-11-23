@@ -110,7 +110,40 @@
                         </select>
                     </div>
 
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Town</label>
+                        <input type="text" class="form-control" id="txtEmail" name="Town" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Select County</label>
+                        <select class="form-control" name="County">
+                            @if (ViewBag.Counties != null)
+                            {
+                                foreach (var item in ViewBag.Counties)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Select Gender</label>
+                        <select class="form-control" name="Gender">
+                          
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                         
+
+                        </select>
+                    </div>
+
+
+
                 </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
