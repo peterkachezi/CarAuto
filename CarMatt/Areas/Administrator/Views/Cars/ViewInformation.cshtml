@@ -12,11 +12,11 @@
     </div>
     <div class="x_content">
 
-
+   
 
         <div class="col-md-7 col-sm-7 ">
             <div class="product-image">
-                <img src="~/uploads/@Model.singleImageDTO.ImageName" alt="..." style="width: 66%; margin-top: 3em; height: 27em; ">
+                <img src="~/uploads/@Model.singleImageDTO.ImageName" alt="..." style="width: 90%; margin-top: 3em; height: 30em; ">
             </div>
             <div class="product_gallery">
 
@@ -26,24 +26,11 @@
                     foreach (var item in Model.imageDTO)
                     {
                         <a>
-                            <img src="~/uploads/@item.ImageName" alt="...">
+                            <img src="~/uploads/@item.ImageName" alt="..." style="width: 100%; margin-top: 9px; height: 6em; ">
                         </a>
                     }
                 }
 
-
-                @*<a>
-                    <img src="~/images/prod-2.jpg" alt="...">
-                </a>
-                <a>
-                    <img src="~/images/prod-3.jpg" alt="...">
-                </a>
-                <a>
-                    <img src="~/images/prod-4.jpg" alt="...">
-                </a>
-                <a>
-                    <img src="~/images/prod-5.jpg" alt="...">
-                </a>*@
 
 
             </div>
@@ -147,7 +134,7 @@
             </div>
 
             <div class="">
-  
+
                 <button type="button" class="btn btn-danger btn-lg pull-right">Delete This Car</button>
             </div>
 

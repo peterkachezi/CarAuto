@@ -251,7 +251,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
         }
 
-        public async Task<List<ImageDTO>> SaveUploads(List<ImageDTO> myfiles, VehicleDTO vehicleDTO)
+        public VehicleDTO SaveUploads(VehicleDTO vehicleDTO)
         {
             try
             {
@@ -303,7 +303,20 @@ namespace CarMatt.Data.Services.VehicleModule
 
                 context.Vehicles.Add(s);
 
-                foreach (var item in myfiles)
+                var myimage = vehicleDTO.ImageName.ToList();
+
+                var myimages = new List<ImageDTO>();
+
+
+                //foreach (var item in vehicleDTO.ImageName)
+                //{
+                //    var im = item;
+                //}
+
+
+
+
+                foreach (var item in vehicleDTO.ImageName)
                 {
                     var image = new Image();
                     {
@@ -311,19 +324,19 @@ namespace CarMatt.Data.Services.VehicleModule
 
                         image.VehicleId = vehicleDTO.Id;
 
-                        image.ImageName = item.ImageName;
+                        image.ImageName = item;
 
                         image.CreateDate = DateTime.Now;
 
-                        image.CreatedBy = item.CreatedBy;
+                        image.CreatedBy = vehicleDTO.CreatedBy;
 
                     };
                     context.Images.Add(image);
                 }
 
-                await context.SaveChangesAsync();
+                context.SaveChanges();
 
-                return myfiles;
+                return vehicleDTO;
             }
             catch (Exception ex)
             {

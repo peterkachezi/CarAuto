@@ -13,6 +13,6 @@ namespace CarMatt.Data.Services.VehicleModule
         Task<bool> Delete(Guid Id);
         Task<List<VehicleDTO>> GetAll();
         Task<VehicleDTO> GetById(Guid Id);
-        Task<List<ImageDTO>> SaveUploads(List<ImageDTO> myfiles, VehicleDTO vehicleDTO);
+        VehicleDTO SaveUploads(VehicleDTO vehicleDTO);
     }
 }

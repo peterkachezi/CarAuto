@@ -165,14 +165,7 @@
             </div>
 
 
-
             <div class="col-md-12">
-
-
-
-
-
-
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">HighWayFuelEconomy</label>
@@ -188,14 +181,10 @@
                     </div>
                 </div>
 
-
-
-
-
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Upload Files</label>
                     <div class="">
-                        <input type="file" id="files" name="files" multiple class="form-control" />
+                        <input type="file" id="files" name="ImageName"  multiple="multiple" class="form-control" />
                     </div>
                 </div>
 
@@ -333,7 +322,7 @@
 
 
         $.ajax({
-            url: "/Administrator/Cars/Create/",
+            url: "/Administrator/Cars/UploadFilesAjax3/",
             type: "POST",
             data: data,
             processData: false,
