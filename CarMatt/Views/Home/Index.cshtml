@@ -8,7 +8,8 @@
 
     <link href="~/homepage/swiper-bundle.min.css" rel="stylesheet" />
     <!-- font awesome cdn link  -->
-        <link href="~/homepage/all.min.css" rel="stylesheet" />
+    @*<link href="~/homepage/all.min.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- custom css file link  -->
 
     <link href="~/css/style.css" rel="stylesheet" />
@@ -84,129 +85,18 @@
 
     </section>
 
-    <section class="vehicles" id="vehicles">
+ 
 
-        <h1 class="heading"> popular <span>vehicles</span> </h1>
-
-        <div class="swiper vehicles-slider">
-
-            <div class="swiper-wrapper">
-
-                <div class="swiper-slide box">
-                    <img src="~/images/vehicle-1.png" alt="">
-                    <div class="content">
-                        <h3>new model</h3>
-                        <div class="price"> <span>price : </span> $62,000/- </div>
-                        <p>
-                            new
-                            <span class="fas fa-circle"></span> 2021
-                            <span class="fas fa-circle"></span> automatic
-                            <span class="fas fa-circle"></span> petrol
-                            <span class="fas fa-circle"></span> 183mph
-                        </p>
-                        <a href="#" class="btn">check out</a>
-                    </div>
-                </div>
-
-
-
-                <div class="swiper-slide box">
-                    <img src="~/images/vehicle-2.png" alt="">
-                    <div class="content">
-                        <h3>new model</h3>
-                        <div class="price"> <span>price : </span> $62,000/- </div>
-                        <p>
-                            new
-                            <span class="fas fa-circle"></span> 2021
-                            <span class="fas fa-circle"></span> automatic
-                            <span class="fas fa-circle"></span> petrol
-                            <span class="fas fa-circle"></span> 183mph
-                        </p>
-                        <a href="#" class="btn">check out</a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="~/images/vehicle-3.png" alt="">
-                    <div class="content">
-                        <h3>new model</h3>
-                        <div class="price"> <span>price : </span> $62,000/- </div>
-                        <p>
-                            new
-                            <span class="fas fa-circle"></span> 2021
-                            <span class="fas fa-circle"></span> automatic
-                            <span class="fas fa-circle"></span> petrol
-                            <span class="fas fa-circle"></span> 183mph
-                        </p>
-                        <a href="#" class="btn">check out</a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="~/images/vehicle-4.png" alt="">
-                    <div class="content">
-                        <h3>new model</h3>
-                        <div class="price"> <span>price : </span> $62,000/- </div>
-                        <p>
-                            new
-                            <span class="fas fa-circle"></span> 2021
-                            <span class="fas fa-circle"></span> automatic
-                            <span class="fas fa-circle"></span> petrol
-                            <span class="fas fa-circle"></span> 183mph
-                        </p>
-                        <a href="#" class="btn">check out</a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="~/images/vehicle-5.png" alt="">
-                    <div class="content">
-                        <h3>new model</h3>
-                        <div class="price"> <span>price : </span> $62,000/- </div>
-                        <p>
-                            new
-                            <span class="fas fa-circle"></span> 2021
-                            <span class="fas fa-circle"></span> automatic
-                            <span class="fas fa-circle"></span> petrol
-                            <span class="fas fa-circle"></span> 183mph
-                        </p>
-                        <a href="#" class="btn">check out</a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide box">
-                    <img src="~/images/vehicle-6.png" alt="">
-                    <div class="content">
-                        <h3>new model</h3>
-                        <div class="price"> <span>price : </span> $62,000/- </div>
-                        <p>
-                            new
-                            <span class="fas fa-circle"></span> 2021
-                            <span class="fas fa-circle"></span> automatic
-                            <span class="fas fa-circle"></span> petrol
-                            <span class="fas fa-circle"></span> 183mph
-                        </p>
-                        <a href="#" class="btn">check out</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="swiper-pagination"></div>
-
-        </div>
-
-    </section>
-
+    @await Html.PartialAsync("_Vehicles");
     @await Html.PartialAsync("_Featured");
 
     @await Html.PartialAsync("_OurServices");
 
     @await Html.PartialAsync("_Newsletter");
 
-    @await Html.PartialAsync("_Reviews.cshtml");
+    @await Html.PartialAsync("_Reviews");
 
-    @await Html.PartialAsync("_Footer.cshtml");
+    @await Html.PartialAsync("_Footer");
 
 
 
