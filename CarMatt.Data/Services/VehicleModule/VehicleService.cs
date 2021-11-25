@@ -157,6 +157,8 @@ namespace CarMatt.Data.Services.VehicleModule
 
                                  HighWayFuelEconomy = vehicle.HighWayFuelEconomy,
 
+                                 YearOfProduction = vehicle.YearOfProduction,
+
                                  CreateDate = vehicle.CreateDate,
 
                                  CreatedBy = vehicle.CreatedBy,
@@ -232,6 +234,8 @@ namespace CarMatt.Data.Services.VehicleModule
 
                                  HighWayFuelEconomy = vehicle.HighWayFuelEconomy,
 
+                                 YearOfProduction = vehicle.YearOfProduction,
+
                                  CreateDate = vehicle.CreateDate,
 
                                  CreatedBy = vehicle.CreatedBy,
@@ -298,6 +302,8 @@ namespace CarMatt.Data.Services.VehicleModule
                     CreatedBy = vehicleDTO.CreatedBy,
 
                     Quantity = vehicleDTO.Quantity,
+
+                    YearOfProduction = vehicleDTO.YearOfProduction,
 
                 };
 
@@ -392,6 +398,8 @@ namespace CarMatt.Data.Services.VehicleModule
                     s.CityFuelEconomy = vehicleDTO.CityFuelEconomy;
 
                     s.HighWayFuelEconomy = vehicleDTO.HighWayFuelEconomy;
+
+                    s.YearOfProduction = vehicleDTO.YearOfProduction;
 
                     transaction.Commit();
 

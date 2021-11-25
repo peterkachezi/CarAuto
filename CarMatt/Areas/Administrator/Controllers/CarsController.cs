@@ -80,35 +80,7 @@ namespace CarMatt.Areas.Administrator.Controllers
 
             return Json(new { data = expenses });
         }
-        public async Task<IActionResult> Create(VehicleDTO vehicleDTO)
-        {
-            try
-            {
-                var user = await userManager.FindByEmailAsync(User.Identity.Name);
-
-                vehicleDTO.CreatedBy = user.Id;
-
-                var results = await vehicleService.Create(vehicleDTO);
-
-                if (results != null)
-                {
-                    return Json(new { success = true, responseText = "Record has been successfully saved" });
-                }
-                else
-                {
-                    return Json(new { success = false, responseText = "Record has been  not been saved" });
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-                return null;
-            }
-
-
-        }
+       
         public async Task<IActionResult> GetById(Guid Id)
         {
             try
@@ -255,17 +227,27 @@ namespace CarMatt.Areas.Administrator.Controllers
 
     
         [HttpPost]
-        public async Task<IActionResult> UploadFilesAjax3Async(VehicleDTO  vehicleDTO, IFormFile[] ImageName)
+        public async Task<IActionResult> Create(VehicleDTO  vehicleDTO, IFormFile[] ImageName)
         {
             try
             {
+                var isCarExist = await vehicleService.GetById(vehicleDTO.ModelId);
+
+                if(isCarExist != null)
+                {
+                    return Json(new { success = false, responseText = "This car already exists" });
+
+                }
+
                 var user = await userManager.FindByEmailAsync(User.Identity.Name);
 
                 vehicleDTO.CreatedBy = user.Id;
 
                 if (ImageName == null || ImageName.Length == 0)
                 {
-                    return Content("File(s) not selected");
+                   
+                    return Json(new { success = false, responseText = "Please upload photos / images" });
+
                 }
                 else
                 {
@@ -273,13 +255,27 @@ namespace CarMatt.Areas.Administrator.Controllers
 
                     foreach (IFormFile photo in ImageName)
                     {
-                        var path = Path.Combine(this.env.WebRootPath, "uploads", photo.FileName);
+
+
+                        //Getting FileName
+                        var fileName = Path.GetFileName(photo.FileName);
+
+                        //Assigning Unique Filename (Guid)
+                        var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                        //Getting file Extension
+                        var fileExtension = Path.GetExtension(fileName);
+
+                        // concatenating  FileName + FileExtension
+                        var newFileName = String.Concat(myUniqueFileName, fileExtension);
+
+                        var path = Path.Combine(this.env.WebRootPath, "uploads", newFileName);
 
                         var stream = new FileStream(path, FileMode.Create);
 
                         photo.CopyTo(stream);
 
-                        vehicleDTO.ImageName.Add(photo.FileName);
+                        vehicleDTO.ImageName.Add(newFileName);
                     }
                 }
 
@@ -295,6 +291,8 @@ namespace CarMatt.Areas.Administrator.Controllers
                 {
                     return Json(new { success = false, responseText = "Unable to registered the vehicle" });
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -304,64 +302,5 @@ namespace CarMatt.Areas.Administrator.Controllers
             }
         }
     
-
-    [HttpPost]
-        public async Task<IActionResult> UploadFilesAjax2(List<IFormFile> files, VehicleDTO vehicleDTO)
-        {
-            var user = await userManager.FindByEmailAsync(User.Identity.Name);
-
-            ImageDTO imageDTO = new ImageDTO();
-
-            imageDTO.CreatedBy = user.Id;
-
-            vehicleDTO.CreatedBy = user.Id;
-
-            if (files != null)
-            {
-                foreach (var file in files)
-                {
-                    if (file.Length > 0)
-                    {
-                        //Getting FileName
-                        var fileName = Path.GetFileName(file.FileName);
-
-                        //Assigning Unique Filename (Guid)
-                        var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                        //Getting file Extension
-                        var fileExtension = Path.GetExtension(fileName);
-
-                        // concatenating  FileName + FileExtension
-                        var newFileName = String.Concat(myUniqueFileName, fileExtension);
-
-                        var myfiles = new List<ImageDTO>();
-
-                        //foreach (var item in newFileName)
-                        //{
-                        //    var data = new ImageDTO
-                        //    {
-                        //        ImageName = item.newFileName,
-                        //        CreatedBy = user.Id,
-                        //    };
-
-                        //    myfiles.Add(data);
-                        //}
-
-
-                        // Combines two strings into a path.
-                        var filepath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads")).Root + $@"\{newFileName}";
-
-
-                        using (FileStream fs = System.IO.File.Create(filepath))
-                        {
-                            file.CopyTo(fs);
-                            fs.Flush();
-                        }
-
-                    }
-                }
-            }
-            return View("Index");
-        }
     }
 }

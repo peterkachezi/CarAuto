@@ -30,8 +30,8 @@ namespace CarMatt.Data.DTOs.VehicleModule
         public string CreatedBy { get; set; }
         public string CreatedByName { get; set; }
         public int Quantity { get; set; }
-
+        public string YearOfProduction { get; set; }
         public List<string> ImageName { get; set; }
-    
+
     }
 }

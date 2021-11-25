@@ -6,7 +6,7 @@
 
 <div class="x_panel">
     <div class="x_title">
-        <h2 class="Header">@Model.vehicleDTO.MakeName @Model.vehicleDTO.ModelName @Model.vehicleDTO.StyleTrim  2016 </h2>
+        <h2 class="Header">@Model.vehicleDTO.MakeName @Model.vehicleDTO.ModelName @Model.vehicleDTO.StyleTrim  @Model.vehicleDTO.YearOfProduction </h2>
 
         <div class="clearfix"></div>
     </div>
@@ -18,7 +18,7 @@
             <div class="product-image">
                 <img src="~/uploads/@Model.singleImageDTO.ImageName" alt="..." style="width: 90%; margin-top: 3em; height: 30em; ">
             </div>
-            <div class="product_gallery">
+            <div class="product_gallery ">
 
 
                 @if (Model.imageDTO != null)
@@ -153,4 +153,19 @@
         font-size: 1.1rem;
         max-width: calc(100% - 40px);
     }
+
+    .geeks {
+       
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+        .geeks img {
+            width: 100%;
+            transition: 0.5s all ease-in-out;
+        }
+
+        .geeks:hover img {
+            transform: scale(1.5);
+        }
 </style>

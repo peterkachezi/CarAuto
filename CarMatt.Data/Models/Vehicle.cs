@@ -52,6 +52,7 @@ namespace CarMatt.Data.Models
         [Required]
         [StringLength(450)]
         public string CreatedBy { get; set; }
+        public string YearOfProduction { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
     }

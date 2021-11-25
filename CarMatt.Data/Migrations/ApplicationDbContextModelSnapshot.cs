@@ -455,6 +455,9 @@ namespace CarMatt.Data.Migrations
                     b.Property<string>("Transmission")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("YearOfProduction")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Vehicles");

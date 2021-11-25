@@ -189,7 +189,20 @@
                 </div>
 
 
+            </div>   
+            
+            <div class="col-md-12">
+
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Year Of Production</label>
+                    <div class="">
+                        <input id="txtYearOfProduction" class="form-control" type="text" name="YearOfProduction">
+                    </div>
+                </div>
+                     
+
             </div>
+
 
             <div class="col-md-12">
                 <div class="ln_solid"></div>
@@ -266,47 +279,7 @@
 
     $(document).ready(function () {
 
-        $("#upload").click(function (evt) {
-
-            var fileUpload = $("#files").get(0);
-
-            var files = fileUpload.files;
-
-            var data = new FormData();
-
-            for (var i = 0; i < files.length; i++) {
-
-                data.append(files[i].name, files[i]);
-
-            }
-
-            $.ajax({
-
-                type: "POST",
-
-                url: "/Administrator/Cars/UploadFilesAjax/",
-
-                contentType: false,
-
-                processData: false,
-
-                data: data,
-
-                success: function (message) {
-
-                    alert(message);
-
-                },
-
-                error: function () {
-
-                    alert("There was error uploading files!");
-
-                }
-
-            });
-
-        });
+        GetModels();
 
     });
 
@@ -322,7 +295,7 @@
 
 
         $.ajax({
-            url: "/Administrator/Cars/UploadFilesAjax3/",
+            url: "/Administrator/Cars/Create/",
             type: "POST",
             data: data,
             processData: false,
