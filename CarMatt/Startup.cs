@@ -2,7 +2,10 @@
 
 using CarMatt.Data.Models;
 using CarMatt.Data.Services.AgentModule;
+using CarMatt.Data.Services.CarMakeModule;
+using CarMatt.Data.Services.CarModelModule;
 using CarMatt.Data.Services.CountyModule;
+using CarMatt.Data.Services.ImageModule;
 using CarMatt.Data.Services.VehicleModule;
 using CarMatt.EmailServiceModule;
 using CarMatt.Helpers;
@@ -40,14 +43,18 @@ namespace CarMatt
             services.AddMvc();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
+
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, ApplicationUserClaimsPrincipalFactory>();
             services.AddScoped<IAgentService, AgentService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ICountyService, CountyService>();
             services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<ICarMakeService, CarMakeService>();
+            services.AddScoped<IModelService, ModelService>();
+            services.AddScoped<ICarImageService, CarImageService>();
 
-
+            services.AddControllersWithViews();
 
 
         }
@@ -152,7 +159,7 @@ namespace CarMatt
 
                     var chkUser = await userManager.CreateAsync(user, userPWD);
 
-                    if (chkUser.Succeeded==true)
+                    if (chkUser.Succeeded == true)
                     {
                         userManager.AddToRoleAsync(user, "Administrator").Wait();
 
@@ -177,7 +184,7 @@ namespace CarMatt
 
                     var chkUser = await userManager.CreateAsync(user, userPWD);
 
-                    if (chkUser.Succeeded==true)
+                    if (chkUser.Succeeded == true)
                     {
                         userManager.AddToRoleAsync(user, "Agent").Wait();
 

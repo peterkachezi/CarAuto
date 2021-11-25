@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarMatt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211123142712_dbs7")]
-    partial class dbs7
+    [Migration("20211124095727_yes2")]
+    partial class yes2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,6 +60,53 @@ namespace CarMatt.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Agents");
+                });
+
+            modelBuilder.Entity("CarMatt.Data.Models.CarMake", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CarMakes");
+                });
+
+            modelBuilder.Entity("CarMatt.Data.Models.CarModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CarMakeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CarModels");
                 });
 
             modelBuilder.Entity("CarMatt.Data.Models.County", b =>
@@ -389,11 +436,11 @@ namespace CarMatt.Data.Migrations
                     b.Property<string>("Kilometres")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Make")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("MakeId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Model")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("ModelId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Passangers")
                         .HasColumnType("nvarchar(max)");

@@ -17,10 +17,10 @@
 
                 <div class="col-md-3">
 
-                    <h6 class="Header"><i class="fa fa-magnet"></i> Car Cars</h6>
+                    <h6 class="Header"><i class="fa fa-magnet"></i> Car Makes</h6>
                 </div>
                 <div class="col-md-9">
-                    <a class="btn btn-success btn-sm  pull-right" href="~/Administrator/Cars/CarRegistration/"><i class="fa fa-plus-circle"></i></a>
+                    <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#ModalCreateCarMake" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  </button>
                 </div>
 
             </div>
@@ -42,13 +42,9 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Car Model</th>
-                                        <th scope="col">Car  Make</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Body Type</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Created By</th>
+                                        <th scope="col">Name</th>
                                         <th scope="col">Entry Date</th>
+                                        <th scope="col">Created By</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -60,12 +56,78 @@
                 </div>
             </div>
 
+
+
+
         </div>
     </div>
 </div>
 
 
 
+<div class="modal fade" id="ModalCreateCarMake" tabindex="-1" role="dialog" aria-labelledby="ModalCreateCarMakeTypeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalCreateExpenseTypeLabel"> Add Car Makes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmCreateCarMake">
+
+
+                    <div class="">
+                        <label for="exampleInputEmail1"> Name</label>
+                        <input type="email" class="form-control" id="txtName" name="Name" aria-describedby="emailHelp" placeholder="e.g BMW,Toyota">
+                    </div>
+
+
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" onclick="SaveData()" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalUpdateExpenseType" tabindex="-1" role="dialog" aria-labelledby="ModalUpdateExpenseTypeLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalUpdateExpenseTypeLabel"> Update Furniture</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmUdateCarMake">
+                    <input type="hidden" name="Id" id="txtId" />
+
+                    <div class="">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="email" class="form-control" id="txtName1" name="Name" aria-describedby="emailHelp" placeholder="e.g BMW,Toyota">
+                    </div>
+
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" onclick="UpdateData()" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="divLoader" style="display:none;" class="loader">
 
@@ -129,7 +191,7 @@
 
         var t = $('#tblExpenses').DataTable({
             "ajax": {
-                "url": "/Administrator/Cars/GetVehicles",
+                "url": "/Administrator/Makes/GetMakes",
                 "type": "GET",
                 "datatype": "json"
             },
@@ -137,18 +199,14 @@
             "columns": [
 
                 { "data": "id" },
-                { "data": "modelName" },
-                { "data": "makeName" },
-                { "data": "price" },
-                { "data": "bodyType" },
-                { "data": "quantity" },
-      
-                { "data": "createdByName" },
+                { "data": "name" },
                 { "data": "newCreateDate" },
+                { "data": "createdByName" },
+
                 {
                     data: null,
                     mRender: function (data, type, row) {
-                        return "<a href='#' class='btn-sm success'    onclick=FetchCarDetails('" + row.id + "'); >Edit Details</a> / <a href='#' class='btn-sm btn-info'    onclick=ViewCarDetails('" + row.id + "'); >View Details</a>";
+                        return "<a href='#' class='btn-sm success'    onclick=GetRecord('" + row.id + "'); >Edit</a> / <a href='#' class='btn-sm danger'    onclick=DeleteRecord('" + row.id + "'); >Delete</a>";
 
                     }
                 }
@@ -195,7 +253,7 @@
 
                     type: "GET",
 
-                    url: "/Administrator/Cars/Delete/" + id,
+                    url: "/Administrator/Makes/Delete/" + id,
 
                     success: function (response) {
 
@@ -272,7 +330,7 @@
         $.ajax({
 
             type: "POST",
-            url: "/Administrator/Cars/Create",
+            url: "/Administrator/Makes/Create",
             data: data,
 
             success: function (response) {
@@ -331,7 +389,7 @@
         $.ajax({
 
             type: "POST",
-            url: "/Administrator/Cars/Update",
+            url: "/Administrator/Makes/Update",
             data: data,
 
             success: function (response) {
@@ -366,26 +424,28 @@
 
     }
 
+    function GetRecord(e) {
+
+        var id = e;
+
+        console.log(id);
+
+        $.get("/Administrator/Makes/GetById/?Id=" + id, function (data, status) {
+            console.log(data);
+            if (data == null) {
+                alert("Does not exist");
+            } else {
+
+                $("#txtId").val(data.data.id);
+                $("#txtName1").val(data.data.name);
 
 
+                $('#ModalUpdateExpenseType').modal({ backdrop: 'static', keyboard: false })
+                $("#ModalUpdateExpenseType").modal('show');
+            }
 
-    function FetchCarDetails(e) {
-
-        var CarId = e;
-
-        window.location.href = "/Administrator/Cars/UpdateInformation?Id=" + CarId;
-
-    }
-
-    function ViewCarDetails(e) {
-
-        var CarId = e;
-
-        window.location.href = "/Administrator/Cars/ViewInformation?Id=" + CarId;
-
-    }
-
-
+        });
+    };
 
     //Allow users to enter numbers only
     $(".numericOnly").bind('keypress', function (e) {
@@ -417,8 +477,6 @@
     });
 
 </script>
-
-
 
 
 

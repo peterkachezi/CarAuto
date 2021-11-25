@@ -1,10 +1,18 @@
-﻿using CarMatt.Data.DTOs.VehicleModule;
+﻿using CarMatt.Data.DTOs.ImageModule;
+using CarMatt.Data.DTOs.VehicleModule;
 using CarMatt.Data.Models;
+using CarMatt.Data.Services.CarMakeModule;
+using CarMatt.Data.Services.CarModelModule;
+using CarMatt.Data.Services.ImageModule;
 using CarMatt.Data.Services.VehicleModule;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,32 +21,63 @@ namespace CarMatt.Areas.Administrator.Controllers
     [Area("Administrator")]
     public class CarsController : Controller
     {
-  
-        private readonly IVehicleService  vehicleService;
+        private IWebHostEnvironment env;
+
+        private readonly IVehicleService vehicleService;
 
         private readonly UserManager<AppUser> userManager;
-        public CarsController(IVehicleService vehicleService, UserManager<AppUser> userManager)
+
+        private readonly ICarMakeService carMakeService;
+
+        private readonly IModelService modelService;
+
+        private readonly ICarImageService carImageService;
+        public CarsController(ICarImageService carImageService, IVehicleService vehicleService, UserManager<AppUser> userManager, IWebHostEnvironment env, ICarMakeService carMakeService, IModelService modelService)
         {
             this.vehicleService = vehicleService;
             this.userManager = userManager;
+            this.carMakeService = carMakeService;
+            this.modelService = modelService;
+            this.carImageService = carImageService;
+            this.env = env;
         }
-        public IActionResult Index()
+        public ActionResult Index()
         {
+
             return View();
         }
-
-        public IActionResult CarRegistration()
+        public async Task<IActionResult> GetVehicles()
         {
+            var vehicles = (await vehicleService.GetAll()).OrderBy(x=>x.CreateDate).ToList();
+
+            return Json(new { data = vehicles });
+        }
+        public async Task<IActionResult> CarRegistration()
+        {
+            ViewBag.Makes = await carMakeService.GetAll();
+
             return View();
         }
+        public async Task<ActionResult> GetModels(Guid Id)
+        {
+            var streams = (await modelService.GetAll()).Where(x => x.CarMakeId == Id).ToList();
 
+            return Json(streams.Select(x => new
+            {
+                MakeId = x.Id,
+
+                MakeName = x.Name
+
+            }).ToList());
+
+        }
         public async Task<IActionResult> GetExpenseType()
         {
             var expenses = await vehicleService.GetAll();
 
             return Json(new { data = expenses });
         }
-        public async Task<IActionResult> Create(VehicleDTO  vehicleDTO)
+        public async Task<IActionResult> Create(VehicleDTO vehicleDTO)
         {
             try
             {
@@ -48,7 +87,7 @@ namespace CarMatt.Areas.Administrator.Controllers
 
                 var results = await vehicleService.Create(vehicleDTO);
 
-                if (results !=null)
+                if (results != null)
                 {
                     return Json(new { success = true, responseText = "Record has been successfully saved" });
                 }
@@ -81,11 +120,13 @@ namespace CarMatt.Areas.Administrator.Controllers
 
                         Price = data.Price,
 
-                        Make = data.Make,
+                        Quantity = data.Quantity,
+
+                        MakeId = data.MakeId,
 
                         AvailabilityStatus = data.AvailabilityStatus,
 
-                        Model = data.Model,
+                        ModelId = data.ModelId,
 
                         Kilometres = data.Kilometres,
 
@@ -135,7 +176,7 @@ namespace CarMatt.Areas.Administrator.Controllers
             {
                 var results = await vehicleService.Delete(Id);
 
-                if (results ==true)
+                if (results == true)
                 {
                     return Json(new { success = true, responseText = "Record  has been  successfully Deleted!" });
                 }
@@ -151,13 +192,58 @@ namespace CarMatt.Areas.Administrator.Controllers
                 return null;
             }
         }
+        public async Task<ActionResult> UpdateInformation(Guid Id)
+        {
+            var make = await carMakeService.GetAll();
+
+            var productsList = (from product in make
+                                select new SelectListItem()
+                                {
+                                    Text = product.Name,
+                                    Value = product.Id.ToString(),
+                                }).ToList();
+
+            productsList.Insert(0, new SelectListItem()
+            {
+                Text = "----Select----",
+                Value = string.Empty
+            });
+
+            ViewBag.Makes = make;
+
+            var vehicle = await vehicleService.GetById(Id);
+
+            return View(vehicle);
+        }
+
+
+
+
+
+
+        public async Task<ActionResult> ViewInformation(Guid Id)
+        {
+            CombinedDTO combinedDTO = new CombinedDTO()
+            {
+            };
+
+            combinedDTO.vehicleDTO = await vehicleService.GetById(Id);
+
+            combinedDTO.imageDTO = await carImageService.GetByCarId(Id);
+
+            combinedDTO.singleImageDTO = await carImageService.GetByCardIdSingle(Id);
+
+            return View(combinedDTO);
+        }
+
+
         public async Task<IActionResult> Update(VehicleDTO vehicleDTO)
         {
             try
             {
                 var results = await vehicleService.Update(vehicleDTO);
 
-                if (results !=null)
+                if (results != null)
 
                 {
                     return Json(new { success = true, responseText = "Record  has been  successfully updated!" });
@@ -176,8 +262,114 @@ namespace CarMatt.Areas.Administrator.Controllers
             }
 
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadFilesAjax(VehicleDTO vehicleDTO)
+
+        {
+            var user = await userManager.FindByEmailAsync(User.Identity.Name);
+
+            ImageDTO file = new ImageDTO();
+
+            file.CreatedBy = user.Id;
+
+            vehicleDTO.CreatedBy = user.Id;
+
+            //< init >
+
+            long uploaded_size = 0;
+
+            string path_for_Uploaded_Files = env.WebRootPath + "\\uploads\\";
+
+            //</ init >
 
 
+
+            //< get form_files >
+
+            //IFormFile uploaded_File
+
+            var uploaded_files = Request.Form.Files;
+
+            var myfiles = new List<ImageDTO>();
+
+            foreach (var item in uploaded_files)
+            {
+                var data = new ImageDTO
+                {
+                    ImageName = item.FileName,
+                    CreatedBy = user.Id,
+                };
+
+                myfiles.Add(data);
+            }
+
+            var result = vehicleService.SaveUploads(myfiles, vehicleDTO);
+
+            //</ get form_files >
+
+
+
+            //------< @Loop: Uploaded Files >------
+
+            int iCounter = 0;
+
+            string sFiles_uploaded = "";
+
+            foreach (var uploaded_file in uploaded_files)
+
+            {
+                //----< Uploaded File >----
+
+                iCounter++;
+
+                uploaded_size += uploaded_file.Length;
+
+                sFiles_uploaded += "\n" + uploaded_file.FileName;
+
+
+                //< Filename >
+
+                string uploaded_Filename = uploaded_file.FileName;
+
+                string new_Filename_on_Server = path_for_Uploaded_Files + "\\" + uploaded_Filename;
+
+                //</ Filename >
+
+
+                //< Copy File to Target >
+
+                using (FileStream stream = new FileStream(new_Filename_on_Server, FileMode.Create))
+
+                {
+
+                    await uploaded_file.CopyToAsync(stream);
+
+                }
+
+                //< Copy File to Target >
+
+                //----</ Uploaded File >----
+
+            }
+
+            //------</ @Loop: Uploaded Files >------
+
+            //string message = "Upload successful!\n files uploaded:" + iCounter + "\nsize:" + uploaded_size + "\n" + sFiles_uploaded;
+
+          
+
+            if (result != null)
+            {
+                return Json(new { success = true, responseText = "The vehicle has been successfully registered" });
+            }
+
+            else
+            {
+                return Json(new { success = false, responseText = "Unable to registered the vehicle" });
+            }
+
+
+        }
 
     }
 }

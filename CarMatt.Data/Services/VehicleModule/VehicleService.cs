@@ -1,4 +1,5 @@
-﻿using CarMatt.Data.DTOs.VehicleModule;
+﻿using CarMatt.Data.DTOs.ImageModule;
+using CarMatt.Data.DTOs.VehicleModule;
 using CarMatt.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,7 +13,6 @@ namespace CarMatt.Data.Services.VehicleModule
     public class VehicleService : IVehicleService
     {
         private readonly ApplicationDbContext context;
-
         public VehicleService(ApplicationDbContext context)
         {
             this.context = context;
@@ -27,11 +27,11 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     Price = vehicleDTO.Price,
 
-                    Make = vehicleDTO.Make,
+                    MakeId = vehicleDTO.MakeId,
 
                     AvailabilityStatus = vehicleDTO.AvailabilityStatus,
 
-                    Model = vehicleDTO.Model,
+                    ModelId = vehicleDTO.ModelId,
 
                     Kilometres = vehicleDTO.Kilometres,
 
@@ -76,7 +76,6 @@ namespace CarMatt.Data.Services.VehicleModule
                 return null;
             }
         }
-
         public async Task<bool> Delete(Guid Id)
         {
             try
@@ -108,55 +107,65 @@ namespace CarMatt.Data.Services.VehicleModule
         {
             try
             {
-                var vehicle = await context.Vehicles.ToListAsync();
+                var makes = (from vehicle in context.Vehicles
 
-                var vehicles = new List<VehicleDTO>();
+                             join user in context.AppUser on vehicle.CreatedBy equals user.Id
 
-                foreach (var item in vehicle)
-                {
-                    var data = new VehicleDTO
-                    {
-                        Id = item.Id,
+                             join make in context.CarMakes on vehicle.MakeId equals make.Id
 
-                        Price = item.Price,
+                             join model in context.CarModels on vehicle.ModelId equals model.Id
 
-                        Make = item.Make,
+                             select new VehicleDTO()
+                             {
+                                 Id = vehicle.Id,
 
-                        AvailabilityStatus = item.AvailabilityStatus,
+                                 Price = vehicle.Price,
 
-                        Model = item.Model,
+                                 Quantity = vehicle.Quantity,
 
-                        Kilometres = item.Kilometres,
+                                 MakeId = vehicle.MakeId,
 
-                        BodyType = item.BodyType,
+                                 MakeName = make.Name,
 
-                        StyleTrim = item.StyleTrim,
+                                 AvailabilityStatus = vehicle.AvailabilityStatus,
 
-                        Engine = item.Engine,
+                                 ModelId = vehicle.ModelId,
 
-                        Drivetrain = item.Drivetrain,
+                                 ModelName = model.Name,
 
-                        Transmission = item.Transmission,
+                                 Kilometres = vehicle.Kilometres,
 
-                        ExteriorColor = item.ExteriorColor,
+                                 BodyType = vehicle.BodyType,
 
-                        InteriorColor = item.InteriorColor,
+                                 StyleTrim = vehicle.StyleTrim,
 
-                        Passangers = item.Passangers,
+                                 Engine = vehicle.Engine,
 
-                        FuelType = item.FuelType,
+                                 Drivetrain = vehicle.Drivetrain,
 
-                        CityFuelEconomy = item.CityFuelEconomy,
+                                 Transmission = vehicle.Transmission,
 
-                        HighWayFuelEconomy = item.HighWayFuelEconomy,
+                                 ExteriorColor = vehicle.ExteriorColor,
 
-                        CreateDate = item.CreateDate,
+                                 InteriorColor = vehicle.InteriorColor,
 
-                        CreatedBy = item.CreatedBy,
-                    };
-                    vehicles.Add(data);
-                }
-                return vehicles;
+                                 Passangers = vehicle.Passangers,
+
+                                 FuelType = vehicle.FuelType,
+
+                                 CityFuelEconomy = vehicle.CityFuelEconomy,
+
+                                 HighWayFuelEconomy = vehicle.HighWayFuelEconomy,
+
+                                 CreateDate = vehicle.CreateDate,
+
+                                 CreatedBy = vehicle.CreatedBy,
+
+                                 CreatedByName = user.FullName,
+
+                             }).OrderByDescending(x => x.CreateDate).ToListAsync();
+
+                return await makes;
             }
             catch (Exception ex)
             {
@@ -164,55 +173,157 @@ namespace CarMatt.Data.Services.VehicleModule
 
                 return null;
             }
+
         }
+
 
         public async Task<VehicleDTO> GetById(Guid Id)
         {
             try
             {
-                var vehicle = await context.Vehicles.FindAsync(Id);
+                var makes = (from vehicle in context.Vehicles
 
-                return new VehicleDTO
+                             join user in context.AppUser on vehicle.CreatedBy equals user.Id
+
+                             join make in context.CarMakes on vehicle.MakeId equals make.Id
+
+                             join model in context.CarModels on vehicle.ModelId equals model.Id
+                                    
+
+                             select new VehicleDTO()
+                             {
+                                 Id = vehicle.Id,
+
+                                 Price = vehicle.Price,
+
+                                 Quantity = vehicle.Quantity,
+
+                                 MakeId = vehicle.MakeId,
+
+                                 MakeName = make.Name,
+
+                                 AvailabilityStatus = vehicle.AvailabilityStatus,
+
+                                 ModelId = vehicle.ModelId,
+
+                                 ModelName = model.Name,
+
+                                 Kilometres = vehicle.Kilometres,
+
+                                 BodyType = vehicle.BodyType,
+
+                                 StyleTrim = vehicle.StyleTrim,
+
+                                 Engine = vehicle.Engine,
+
+                                 Drivetrain = vehicle.Drivetrain,
+
+                                 Transmission = vehicle.Transmission,
+
+                                 ExteriorColor = vehicle.ExteriorColor,
+
+                                 InteriorColor = vehicle.InteriorColor,
+
+                                 Passangers = vehicle.Passangers,
+
+                                 FuelType = vehicle.FuelType,
+
+                                 CityFuelEconomy = vehicle.CityFuelEconomy,
+
+                                 HighWayFuelEconomy = vehicle.HighWayFuelEconomy,
+
+                                 CreateDate = vehicle.CreateDate,
+
+                                 CreatedBy = vehicle.CreatedBy,
+
+                                 CreatedByName = user.FullName,
+
+                             });
+
+                       return await makes.Where(x=>x.Id==Id).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+
+        }
+
+        public async Task<List<ImageDTO>> SaveUploads(List<ImageDTO> myfiles, VehicleDTO vehicleDTO)
+        {
+            try
+            {
+                vehicleDTO.Id = Guid.NewGuid();
+
+                var s = new Vehicle
                 {
-                    Id = vehicle.Id,
+                    Id = vehicleDTO.Id,
 
-                    Price = vehicle.Price,
+                    Price = vehicleDTO.Price,
 
-                    Make = vehicle.Make,
+                    MakeId = vehicleDTO.MakeId,
 
-                    AvailabilityStatus = vehicle.AvailabilityStatus,
+                    AvailabilityStatus = vehicleDTO.AvailabilityStatus,
 
-                    Model = vehicle.Model,
+                    ModelId = vehicleDTO.ModelId,
 
-                    Kilometres = vehicle.Kilometres,
+                    Kilometres = vehicleDTO.Kilometres,
 
-                    BodyType = vehicle.BodyType,
+                    BodyType = vehicleDTO.BodyType,
 
-                    StyleTrim = vehicle.StyleTrim,
+                    StyleTrim = vehicleDTO.StyleTrim,
 
-                    Engine = vehicle.Engine,
+                    Engine = vehicleDTO.Engine,
 
-                    Drivetrain = vehicle.Drivetrain,
+                    Drivetrain = vehicleDTO.Drivetrain,
 
-                    Transmission = vehicle.Transmission,
+                    Transmission = vehicleDTO.Transmission,
 
-                    ExteriorColor = vehicle.ExteriorColor,
+                    ExteriorColor = vehicleDTO.ExteriorColor,
 
-                    InteriorColor = vehicle.InteriorColor,
+                    InteriorColor = vehicleDTO.InteriorColor,
 
-                    Passangers = vehicle.Passangers,
+                    Passangers = vehicleDTO.Passangers,
 
-                    FuelType = vehicle.FuelType,
+                    FuelType = vehicleDTO.FuelType,
 
-                    CityFuelEconomy = vehicle.CityFuelEconomy,
+                    CityFuelEconomy = vehicleDTO.CityFuelEconomy,
 
-                    HighWayFuelEconomy = vehicle.HighWayFuelEconomy,
+                    HighWayFuelEconomy = vehicleDTO.HighWayFuelEconomy,
 
-                    CreateDate = vehicle.CreateDate,
+                    CreateDate = DateTime.Now,
 
-                    CreatedBy = vehicle.CreatedBy,
+                    CreatedBy = vehicleDTO.CreatedBy,
+
+                    Quantity = vehicleDTO.Quantity,
+
                 };
 
+                context.Vehicles.Add(s);
+
+                foreach (var item in myfiles)
+                {
+                    var image = new Image();
+                    {
+                        image.Id = Guid.NewGuid();
+
+                        image.VehicleId = vehicleDTO.Id;
+
+                        image.ImageName = item.ImageName;
+
+                        image.CreateDate = DateTime.Now;
+
+                        image.CreatedBy = item.CreatedBy;
+
+                    };
+                    context.Images.Add(image);
+                }
+
+                await context.SaveChangesAsync();
+
+                return myfiles;
             }
             catch (Exception ex)
             {
@@ -221,7 +332,6 @@ namespace CarMatt.Data.Services.VehicleModule
                 return null;
             }
         }
-
         public async Task<VehicleDTO> Update(VehicleDTO vehicleDTO)
         {
             try
@@ -231,13 +341,20 @@ namespace CarMatt.Data.Services.VehicleModule
                 {
                     var s = await context.Vehicles.FindAsync(vehicleDTO.Id);
 
+                    if (s == null)
+                    {
+                        return null;
+                    }
+
                     s.Price = vehicleDTO.Price;
 
-                    s.Make = vehicleDTO.Make;
+                    s.Quantity = vehicleDTO.Quantity;
+
+                    s.MakeId = vehicleDTO.MakeId;
 
                     s.AvailabilityStatus = vehicleDTO.AvailabilityStatus;
 
-                    s.Model = vehicleDTO.Model;
+                    s.ModelId = vehicleDTO.ModelId;
 
                     s.Kilometres = vehicleDTO.Kilometres;
 
@@ -265,8 +382,9 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     transaction.Commit();
 
-                    
+
                 }
+
                 await context.SaveChangesAsync();
 
                 return vehicleDTO;

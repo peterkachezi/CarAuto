@@ -1,0 +1,169 @@
+﻿@model CarMatt.Data.DTOs.VehicleModule.CombinedDTO
+@{
+    ViewData["Title"] = "ViewInformation";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2 class="Header">@Model.vehicleDTO.MakeName @Model.vehicleDTO.ModelName @Model.vehicleDTO.StyleTrim  2016 </h2>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+
+
+
+        <div class="col-md-7 col-sm-7 ">
+            <div class="product-image">
+                <img src="~/uploads/@Model.singleImageDTO.ImageName" alt="..." style="width: 66%; margin-top: 3em; height: 27em; ">
+            </div>
+            <div class="product_gallery">
+
+
+                @if (Model.imageDTO != null)
+                {
+                    foreach (var item in Model.imageDTO)
+                    {
+                        <a>
+                            <img src="~/uploads/@item.ImageName" alt="...">
+                        </a>
+                    }
+                }
+
+
+                @*<a>
+                    <img src="~/images/prod-2.jpg" alt="...">
+                </a>
+                <a>
+                    <img src="~/images/prod-3.jpg" alt="...">
+                </a>
+                <a>
+                    <img src="~/images/prod-4.jpg" alt="...">
+                </a>
+                <a>
+                    <img src="~/images/prod-5.jpg" alt="...">
+                </a>*@
+
+
+            </div>
+        </div>
+
+        <div class="col-md-5 col-sm-5 " style="border:0px solid #e5e5e5;">
+
+            <h3 class="prod_title Header">DESCRIPTION</h3>
+
+            <table class="table-responsive table-striped table-responsive-lg">
+                <thead>
+                    <tr>
+                        <th>Make</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.MakeName</td>
+                    </tr>
+
+                    <tr>
+                        <th>Model</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.ModelName</td>
+                    </tr>
+
+                    <tr>
+                        <th>Kilometres</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.Kilometres</td>
+                    </tr>
+
+                    <tr>
+                        <th>Body Type</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.BodyType</td>
+                    </tr>
+
+                    <tr>
+                        <th>Style/trim</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.StyleTrim</td>
+                    </tr>
+
+                    <tr>
+                        <th>Engine</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.Engine</td>
+                    </tr>
+
+                    <tr>
+                        <th>Drivetrain</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.Drivetrain</td>
+                    </tr>
+
+                    <tr>
+                        <th>Transmission</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.Transmission</td>
+                    </tr>
+
+                    <tr>
+                        <th>Exterior Color</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.ExteriorColor</td>
+                    </tr>
+
+
+                    <tr>
+                        <th>Interior color</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.InteriorColor</td>
+                    </tr>
+
+                    <tr>
+                        <th>Passangers/Doors</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.Passangers</td>
+                    </tr>
+
+                    <tr>
+                        <th> Fuel Type</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.FuelType</td>
+                    </tr>
+
+                    <tr>
+                        <th>City Fuel Economy</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.CityFuelEconomy</td>
+                    </tr>
+
+                    <tr>
+                        <th>Hwy Fuel Economy</th>
+                        <td style="color: maroon; font-weight: bold;">: @Model.vehicleDTO.HighWayFuelEconomy</td>
+                    </tr>
+
+                    <tr>
+                        <th>Quantity</th>
+                        <td style="color:maroon; font-weight:bold;">: @Model.vehicleDTO.Quantity</td>
+                    </tr>
+
+                </thead>
+            </table>
+
+
+
+            <br>
+
+            <div class="">
+                <div class="product_price">
+                    <h1 class="price">@Model.vehicleDTO.Price Ksh</h1>
+                    @*<span class="price-tax">Ex Tax: Ksh80.00</span>*@
+                    <br>
+                </div>
+            </div>
+
+            <div class="">
+  
+                <button type="button" class="btn btn-danger btn-lg pull-right">Delete This Car</button>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<style>
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+</style>

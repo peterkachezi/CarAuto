@@ -1,4 +1,5 @@
-﻿using CarMatt.Data.DTOs.VehicleModule;
+﻿using CarMatt.Data.DTOs.ImageModule;
+using CarMatt.Data.DTOs.VehicleModule;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace CarMatt.Data.Services.VehicleModule
         Task<bool> Delete(Guid Id);
         Task<List<VehicleDTO>> GetAll();
         Task<VehicleDTO> GetById(Guid Id);
+        Task<List<ImageDTO>> SaveUploads(List<ImageDTO> myfiles, VehicleDTO vehicleDTO);
     }
 }

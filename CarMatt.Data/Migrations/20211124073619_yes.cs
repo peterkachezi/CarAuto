@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarMatt.Data.Migrations
 {
-    public partial class dbs7 : Migration
+    public partial class yes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -15,12 +15,13 @@ namespace CarMatt.Data.Models
         public Guid Id { get; set; }
 
         public decimal Price { get; set; }
+        public int Quantity { get; set; }
 
-        public string Make { get; set; }
+        public Guid MakeId { get; set; }
 
         public long AvailabilityStatus { get; set; }
 
-        public string Model { get; set; }
+        public Guid ModelId { get; set; }
 
         public string Kilometres { get; set; }
 

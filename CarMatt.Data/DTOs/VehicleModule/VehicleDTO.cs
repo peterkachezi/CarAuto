@@ -8,9 +8,11 @@ namespace CarMatt.Data.DTOs.VehicleModule
     {
         public Guid Id { get; set; }
         public decimal Price { get; set; }
-        public string Make { get; set; }
+        public Guid MakeId { get; set; }
+        public string MakeName { get; set; }
         public long AvailabilityStatus { get; set; }
-        public string Model { get; set; }
+        public Guid ModelId { get; set; }
+        public string ModelName { get; set; }
         public string Kilometres { get; set; }
         public string BodyType { get; set; }
         public string StyleTrim { get; set; }
@@ -24,7 +26,12 @@ namespace CarMatt.Data.DTOs.VehicleModule
         public string CityFuelEconomy { get; set; }
         public string HighWayFuelEconomy { get; set; }
         public DateTime CreateDate { get; set; }
+        public string NewCreateDate { get { return CreateDate.ToShortDateString(); } }
         public string CreatedBy { get; set; }
+        public string CreatedByName { get; set; }
+
+        public int Quantity { get; set; }
+
 
     }
 }

@@ -1,5 +1,8 @@
-﻿
+﻿@model CarMatt.Data.DTOs.VehicleModule.VehicleDTO
+
 @{
+
+
     ViewData["Title"] = "CarRegistration";
     Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
 }
@@ -12,16 +15,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="x_content">
-        @*<form method="post" enctype="multipart/form-data">
 
-            <input type="file" id="files"
-                   name="files" multiple />
-
-            <input type="button"
-                   id="upload"
-                   value="Upload" />
-
-        </form>*@
         <form id="frmCreateProduct" data-parsley-validate="" class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
 
 
@@ -29,26 +23,38 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Price</label>
                     <div class="">
-                        <input id="txtName" class="form-control numericOnly" type="text" name="Price">
+                        <input class="form-control numericOnly" type="hidden" name="Id" value="@Model.Id">
+                        <input id="txtName" class="form-control numericOnly" type="text" name="Price" value="@Model.Price">
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Make</label>
                     <div class="">
-                        <select class="form-control" id="txtmakeId" name="MakeId" onchange="GetModels()">
+                        <select class="form-control" id="txtmakeId" name="MakeId" onchange="GetModels()" value="@Model.MakeId">
+
                             @if (ViewBag.Makes != null)
                             {
+
                                 foreach (var item in ViewBag.Makes)
                                 {
-                                    <option value="@item.Id">@item.Name</option>
+                                    if (Model.MakeId == item.Id)
+                                    {
+                                        <option value="@item.Id" selected="selected">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
                                 }
+
                             }
 
-
                         </select>
+
                     </div>
                 </div>
+
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Model</label>
                     <div class="">
@@ -57,7 +63,7 @@
                     </div>
                 </div>
 
-              
+
             </div>
 
             <div class="col-md-12">
@@ -65,7 +71,7 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Availability Status</label>
                     <div class="">
-                        <input id="txtSellingPrice" class="form-control " type="text" name="AvailabilityStatus">
+                        <input id="txtSellingPrice" class="form-control " type="text" name="AvailabilityStatus" value="@Model.AvailabilityStatus">
                     </div>
                 </div>
 
@@ -74,20 +80,19 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Kilometres</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control " type="text" name="Kilometres">
+                        <input id="txtReOrderLevel" class="form-control " type="text" name="Kilometres" value="@Model.Kilometres">
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">BodyType</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control " type="text" name="BodyType">
+                        <input id="txtReOrderLevel" class="form-control " type="text" name="BodyType" value="@Model.BodyType">
                     </div>
                 </div>
 
             </div>
 
-     
 
 
             <div class="col-md-12">
@@ -95,14 +100,14 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">StyleTrim</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control " type="text" name="StyleTrim">
+                        <input id="txtReOrderLevel" class="form-control " type="text" name="StyleTrim" value="@Model.StyleTrim">
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Engine</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="Engine">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="Engine" value="@Model.Engine">
                     </div>
                 </div>
 
@@ -110,7 +115,7 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Drivetrain</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="Drivetrain">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="Drivetrain" value="@Model.Drivetrain">
                     </div>
                 </div>
             </div>
@@ -121,21 +126,21 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Transmission</label>
                     <div class=" ">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="Transmission">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="Transmission" value="@Model.Transmission">
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">ExteriorColor</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="ExteriorColor">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="ExteriorColor" value="@Model.ExteriorColor">
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">InteriorColor</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="InteriorColor">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="InteriorColor" value="@Model.InteriorColor">
                     </div>
                 </div>
             </div>
@@ -145,21 +150,21 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Passangers</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="Passangers">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="Passangers" value="@Model.Passangers">
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">FuelType</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="FuelType">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="FuelType" value="@Model.FuelType">
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">CityFuelEconomy</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="CityFuelEconomy">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="CityFuelEconomy" value="@Model.CityFuelEconomy">
                     </div>
                 </div>
             </div>
@@ -170,32 +175,26 @@
 
 
 
-
-
-
-
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">HighWayFuelEconomy</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="HighWayFuelEconomy">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="HighWayFuelEconomy" value="@Model.HighWayFuelEconomy">
                     </div>
                 </div>
 
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Quantity</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="Quantity">
+                        <input id="txtReOrderLevel" class="form-control" type="text" name="Quantity" value="@Model.Quantity">
                     </div>
                 </div>
 
 
 
-
-
                 <div class="col-md-4 col-sm-4">
-                    <label for="middle-name" class="">Upload Files</label>
+                    <label for="middle-name" class="">Upload Photos</label>
                     <div class="">
-                        <input type="file" id="files" name="files" multiple class="form-control" />
+                        <input type="file" id="files" name="files" multiple class="form-control" value="@Model.AvailabilityStatus" />
                     </div>
                 </div>
 
@@ -211,7 +210,7 @@
                         <button type="button" id="btnSubmit" class="btn btn-success">Submit</button>
                     </div>
                 </div>
-                </div>
+            </div>
 
 
 
@@ -333,7 +332,7 @@
 
 
         $.ajax({
-            url: "/Administrator/Cars/Create/",
+            url: "/Administrator/Cars/Update/",
             type: "POST",
             data: data,
             processData: false,
@@ -407,6 +406,9 @@
 
 
 
+
+
+
     //Allow users to enter numbers only
     $(".numericOnly").bind('keypress', function (e) {
         if (e.keyCode == '9' || e.keyCode == '16') {
@@ -442,5 +444,7 @@
 
 
 </script>
+
+
 
 

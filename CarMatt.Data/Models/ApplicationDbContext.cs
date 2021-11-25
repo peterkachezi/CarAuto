@@ -18,8 +18,9 @@ namespace CarMatt.Data.Models
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<AppUser> AppUser { get; set; }
         public virtual DbSet<Agent> Agents { get; set; }
-
         public virtual DbSet<County> Counties { get; set; }
+        public virtual DbSet<CarMake> CarMakes { get; set; }
+        public virtual DbSet<CarModel> CarModels { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -52,7 +53,6 @@ namespace CarMatt.Data.Models
             seed(modelBuilder);
 
         }
-
         public static void seed(ModelBuilder modelBuilder)
         {
 
@@ -108,7 +108,7 @@ namespace CarMatt.Data.Models
      );
         }
 
-
+       
     }
 
 
