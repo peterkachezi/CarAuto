@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Index.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\dashboard\vendors\parsleyjs\bower_components\bootstrap\bower.json" />
     <Content Include="wwwroot\dashboard\vendors\parsleyjs\bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="wwwroot\dashboard\vendors\parsleyjs\bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />

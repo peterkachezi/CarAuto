@@ -26,7 +26,7 @@ namespace CarMatt.Data.Services.CarMakeModule
 
                     Name = carMakeDTO.Name.Substring(0, 1).ToUpper() + carMakeDTO.Name.Substring(1).ToLower().Trim(),
 
-                CreateDate = DateTime.Now,
+                    CreateDate = DateTime.Now,
 
                     CreatedBy = carMakeDTO.CreatedBy
 
@@ -79,21 +79,21 @@ namespace CarMatt.Data.Services.CarMakeModule
             {
                 var makes = (from c in context.CarMakes
 
-                               join e in context.AppUser on c.CreatedBy equals e.Id
+                             join e in context.AppUser on c.CreatedBy equals e.Id
 
-                               select new CarMakeDTO()
-                               {
-                                   Id = c.Id,
-                       
-                                   Name = c.Name,
+                             select new CarMakeDTO()
+                             {
+                                 Id = c.Id,
 
-                                   CreateDate = c.CreateDate,
+                                 Name = c.Name,
 
-                                   CreatedBy = c.CreatedBy,
+                                 CreateDate = c.CreateDate,
 
-                                   CreatedByName = e.FullName,
+                                 CreatedBy = c.CreatedBy,
 
-                               }).OrderByDescending(x => x.CreateDate).ToListAsync();
+                                 CreatedByName = e.FullName,
+
+                             }).OrderByDescending(x => x.CreateDate).ToListAsync();
 
                 return await makes;
             }

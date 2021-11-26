@@ -1,10 +1,46 @@
-﻿<section class="featured" id="featured">
+﻿@model IEnumerable<CarMatt.Data.DTOs.VehicleModule.VehicleDTO>
+
+
+<section class="featured" id="featured">
 
     <h1 class="heading"> <span>featured</span> cars </h1>
 
-    <div class="swiper featured-slider">
 
+    <div class="swiper featured-slider">
         <div class="swiper-wrapper">
+            @if (Model != null && Model.Count() > 0)
+            {
+
+                @foreach (var item in Model)
+                {
+                    <div class="swiper-slide box">
+                        <img src="~/images/car-1.png" alt="">
+                        <div class="content">
+                            <h3>@item.MakeName</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <div class="price">@item.Price</div>
+                            <a href="#" class="btn">check out</a>
+                        </div>
+                    </div>
+                }
+
+            }
+
+        </div>
+
+
+
+
+
+
+
+        @*<div class="swiper-wrapper">
 
             <div class="swiper-slide box">
                 <img src="~/images/car-1.png" alt="">
@@ -72,11 +108,11 @@
 
         </div>
 
-        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination"></div>*@
 
     </div>
 
-    <div class="swiper featured-slider">
+    @*<div class="swiper featured-slider">
 
         <div class="swiper-wrapper">
 
@@ -148,6 +184,6 @@
 
         <div class="swiper-pagination"></div>
 
-    </div>
+    </div>*@
 
 </section>

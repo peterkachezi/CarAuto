@@ -1,7 +1,6 @@
-﻿using CarMatt.Data.DTOs;
-using CarMatt.Data.DTOs.ImageModule;
-using CarMatt.Data.DTOs.VehicleModule;
+﻿using CarMatt.Data.DTOs.VehicleModule;
 using CarMatt.Data.Models;
+using CarMatt.Data.Services.BodyTypeModule;
 using CarMatt.Data.Services.CarMakeModule;
 using CarMatt.Data.Services.CarModelModule;
 using CarMatt.Data.Services.ImageModule;
@@ -10,9 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +24,8 @@ namespace CarMatt.Areas.Administrator.Controllers
 
         private readonly IVehicleService vehicleService;
 
+        private readonly IBodyTypeService  bodyTypeService;
+
         private readonly UserManager<AppUser> userManager;
 
         private readonly ICarMakeService carMakeService;
@@ -35,13 +33,14 @@ namespace CarMatt.Areas.Administrator.Controllers
         private readonly IModelService modelService;
 
         private readonly ICarImageService carImageService;
-        public CarsController(ICarImageService carImageService, IVehicleService vehicleService, UserManager<AppUser> userManager, IWebHostEnvironment env, ICarMakeService carMakeService, IModelService modelService)
+        public CarsController(IBodyTypeService bodyTypeService,ICarImageService carImageService, IVehicleService vehicleService, UserManager<AppUser> userManager, IWebHostEnvironment env, ICarMakeService carMakeService, IModelService modelService)
         {
             this.vehicleService = vehicleService;
             this.userManager = userManager;
             this.carMakeService = carMakeService;
             this.modelService = modelService;
             this.carImageService = carImageService;
+            this.bodyTypeService = bodyTypeService;
             this.env = env;
         }
         public ActionResult Index()
@@ -58,6 +57,8 @@ namespace CarMatt.Areas.Administrator.Controllers
         public async Task<IActionResult> CarRegistration()
         {
             ViewBag.Makes = await carMakeService.GetAll();
+
+            ViewBag.BodyTypes = await bodyTypeService.GetAll();
 
             return View();
         }
@@ -105,7 +106,9 @@ namespace CarMatt.Areas.Administrator.Controllers
 
                         Kilometres = data.Kilometres,
 
-                        BodyType = data.BodyType,
+                        BodyTypeId = data.BodyTypeId,
+
+                        BodyTypeName = data.BodyTypeName,
 
                         StyleTrim = data.StyleTrim,
 
@@ -178,11 +181,6 @@ namespace CarMatt.Areas.Administrator.Controllers
             return View(vehicle);
         }
 
-
-
-
-
-
         public async Task<ActionResult> ViewInformation(Guid Id)
         {
             CombinedDTO combinedDTO = new CombinedDTO()
@@ -197,8 +195,6 @@ namespace CarMatt.Areas.Administrator.Controllers
 
             return View(combinedDTO);
         }
-
-
         public async Task<IActionResult> Update(VehicleDTO vehicleDTO)
         {
             try
@@ -223,9 +219,7 @@ namespace CarMatt.Areas.Administrator.Controllers
                 return null;
             }
 
-        }
-
-    
+        }    
         [HttpPost]
         public async Task<IActionResult> Create(VehicleDTO  vehicleDTO, IFormFile[] ImageName)
         {
@@ -291,7 +285,6 @@ namespace CarMatt.Areas.Administrator.Controllers
                 {
                     return Json(new { success = false, responseText = "Unable to registered the vehicle" });
                 }
-
 
             }
             catch (Exception ex)

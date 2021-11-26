@@ -25,7 +25,7 @@ namespace CarMatt.Data.Models
 
         public string Kilometres { get; set; }
 
-        public string BodyType { get; set; }
+        public Guid BodyTypeId { get; set; }
 
         public string StyleTrim { get; set; }
 

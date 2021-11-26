@@ -80,5 +80,41 @@ namespace CarMatt.Data.Services.ImageModule
                 return null;
             }
         }
+
+        public async Task<List<ImageDTO>> GetAll()
+        {
+            try
+            {
+                var image = await context.Images.ToListAsync();
+
+                var images = new List<ImageDTO>();
+
+                foreach (var item in image)
+                {
+                    var data = new ImageDTO
+                    {
+                        Id = item.Id,
+
+                        VehicleId = item.VehicleId,
+
+                        CreateDate = item.CreateDate,
+
+                        ImageName = item.ImageName,
+
+                    };
+
+                    images.Add(data);
+
+                }
+
+                return images;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
     }
 }

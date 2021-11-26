@@ -60,6 +60,28 @@ namespace CarMatt.Data.Migrations
                     b.ToTable("Agents");
                 });
 
+            modelBuilder.Entity("CarMatt.Data.Models.BodyType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BodyTypes");
+                });
+
             modelBuilder.Entity("CarMatt.Data.Models.CarMake", b =>
                 {
                     b.Property<Guid>("Id")
@@ -360,6 +382,32 @@ namespace CarMatt.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CarMatt.Data.Models.FeedBack", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FeedBacks");
+                });
+
             modelBuilder.Entity("CarMatt.Data.Models.Image", b =>
                 {
                     b.Property<Guid>("Id")
@@ -399,8 +447,8 @@ namespace CarMatt.Data.Migrations
                     b.Property<long>("AvailabilityStatus")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("BodyType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("BodyTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CityFuelEconomy")
                         .HasColumnType("nvarchar(max)");

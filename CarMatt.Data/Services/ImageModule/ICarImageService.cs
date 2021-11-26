@@ -7,6 +7,7 @@ namespace CarMatt.Data.Services.ImageModule
 {
     public interface ICarImageService
     {
+        Task<List<ImageDTO>> GetAll();
         Task<List<ImageDTO>> GetByCarId(Guid Id);
         Task<ImageDTO> GetByCardIdSingle(Guid Id);
     }

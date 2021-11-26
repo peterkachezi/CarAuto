@@ -21,6 +21,8 @@ namespace CarMatt.Data.Models
         public virtual DbSet<County> Counties { get; set; }
         public virtual DbSet<CarMake> CarMakes { get; set; }
         public virtual DbSet<CarModel> CarModels { get; set; }
+        public virtual DbSet<BodyType> BodyTypes { get; set; }
+        public virtual DbSet<FeedBack> FeedBacks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

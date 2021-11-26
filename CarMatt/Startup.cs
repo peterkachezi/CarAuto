@@ -2,10 +2,13 @@
 
 using CarMatt.Data.Models;
 using CarMatt.Data.Services.AgentModule;
+using CarMatt.Data.Services.BodyTypeModule;
 using CarMatt.Data.Services.CarMakeModule;
 using CarMatt.Data.Services.CarModelModule;
 using CarMatt.Data.Services.CountyModule;
+using CarMatt.Data.Services.FeedBackModule;
 using CarMatt.Data.Services.ImageModule;
+using CarMatt.Data.Services.SMSModule;
 using CarMatt.Data.Services.VehicleModule;
 using CarMatt.EmailServiceModule;
 using CarMatt.Helpers;
@@ -53,8 +56,12 @@ namespace CarMatt
             services.AddScoped<ICarMakeService, CarMakeService>();
             services.AddScoped<IModelService, ModelService>();
             services.AddScoped<ICarImageService, CarImageService>();
+            services.AddScoped<IBodyTypeService, BodyTypeService>();
+            services.AddScoped<IFeedBackService, FeedBackService>();
+            services.AddScoped<IMessagingService, MessagingService>();
 
             services.AddControllersWithViews();
+
 
 
         }
@@ -102,7 +109,10 @@ namespace CarMatt
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
 
         }

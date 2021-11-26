@@ -85,9 +85,27 @@
                 </div>
 
                 <div class="col-md-4 col-sm-4">
-                    <label for="middle-name" class="">BodyType</label>
+                    <label for="middle-name" class="">BodyTypeId</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control " type="text" name="BodyType" value="@Model.BodyType">
+                        <select class="form-control" id="txtBodyId" name="BodyTypeId">
+                            @if (ViewBag.BodyTypes != null)
+                            {
+                                foreach (var item in ViewBag.BodyTypes)
+                                {
+                                    if (Model.MakeId == item.Id)
+                                    {
+                                        <option value="@item.Id" selected="selected">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+
+                                }
+                            }
+
+
+                        </select>
                     </div>
                 </div>
 

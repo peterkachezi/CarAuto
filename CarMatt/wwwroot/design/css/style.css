@@ -428,7 +428,7 @@ section{
 
 .newsletter{
     padding:6rem 2rem;
-    background: url(../image/letter-bg.png) no-repeat;
+    background: url(/images/letter-bg.png) no-repeat;
     background-size: cover;
     background-position: center;
     text-align: center;

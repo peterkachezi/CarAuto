@@ -1,4 +1,6 @@
-﻿<section class="contact" id="contact">
+﻿
+
+<section class="contact" id="contact">
 
     <h1 class="heading"><span>contact</span> us</h1>
 
@@ -6,15 +8,231 @@
 
         <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30153.788252261566!2d72.82321484621745!3d19.141690214227783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aceef0c69%3A0x2aa80cf2287dfa3b!2sJogeshwari%20West%2C%20Mumbai%2C%20Maharashtra%20400047!5e0!3m2!1sen!2sin!4v1632137920043!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
 
-        <form action="">
+        <form id="frmFeedBack">
             <h3>get in touch</h3>
-            <input type="text" placeholder="your name" class="box">
-            <input type="email" placeholder="your email" class="box">
-            <input type="tel" placeholder="subject" class="box">
-            <textarea placeholder="your message" class="box" cols="30" rows="10"></textarea>
-            <input type="submit" value="send message" class="btn">
+
+
+            <div class="alert alert-success" id="divAlart" style="display:none;">
+                <strong id="txtAlart"></strong> 
+            </div>
+
+
+            <input type="text" placeholder="your name" class="box" name="Name" id="txtName">
+            <input type="email" placeholder="your email" class="box" name="Email" id="txtEmail">
+            <input type="tel" placeholder="Phone Number" class="box numericOnly" name="PhoneNumber"  id="txtPhoneNumber">
+            <textarea placeholder="your message" class="box" cols="30" rows="10" name="Message" id="txtMessage"></textarea>
+            <input type="button" value="send message" class="btn" id="btnSubmit">
         </form>
 
     </div>
 
 </section>
+
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+<style>
+    .alert-success {
+        color: #3c763d;
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+    }
+
+
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<link href="~/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/sweetalart/sweetalert.min.js"></script>
+
+<script>
+
+
+
+
+    $('#btnSubmit').click(function (evt) {
+
+        if ($('#txtName').val() == '') {
+            $('#txtName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtEmail').val() == '') {
+            $('#txtEmail').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Email is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtPhoneNumber').val() == '') {
+            $('#txtPhoneNumber').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Phone Number is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtMessage').val() == '') {
+            $('#txtMessage').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Message is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+
+
+
+
+        $("#divLoader").show();
+
+        var data = $("#frmFeedBack").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Home/CustomerFeedBack/",
+            data: data,
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    $("#divLoader").hide();
+
+                    $('#divAlart').show()
+
+                    $('#txtAlart').text(response.responseText);
+
+                    setTimeout(function () { location.reload(); }, 2000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                    $("#divLoader").hide();
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+                $("#divLoader").hide();
+            }
+        })
+
+    });
+
+
+
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+    //Disable paste
+    $(".numericOnly").bind("paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(".numericOnly").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "")
+            $(this).val(val);
+        }
+    });
+
+</script>

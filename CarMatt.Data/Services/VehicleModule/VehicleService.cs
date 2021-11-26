@@ -35,7 +35,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     Kilometres = vehicleDTO.Kilometres,
 
-                    BodyType = vehicleDTO.BodyType,
+                    BodyTypeId = vehicleDTO.BodyTypeId,
 
                     StyleTrim = vehicleDTO.StyleTrim,
 
@@ -115,6 +115,8 @@ namespace CarMatt.Data.Services.VehicleModule
 
                              join model in context.CarModels on vehicle.ModelId equals model.Id
 
+                             join bodytype in context.BodyTypes on vehicle.BodyTypeId equals bodytype.Id
+
                              select new VehicleDTO()
                              {
                                  Id = vehicle.Id,
@@ -135,7 +137,9 @@ namespace CarMatt.Data.Services.VehicleModule
 
                                  Kilometres = vehicle.Kilometres,
 
-                                 BodyType = vehicle.BodyType,
+                                 BodyTypeId = vehicle.BodyTypeId,
+
+                                 BodyTypeName = bodytype.Name,
 
                                  StyleTrim = vehicle.StyleTrim,
 
@@ -190,7 +194,8 @@ namespace CarMatt.Data.Services.VehicleModule
                              join make in context.CarMakes on vehicle.MakeId equals make.Id
 
                              join model in context.CarModels on vehicle.ModelId equals model.Id
-                                    
+
+                             join bodytype in context.BodyTypes on vehicle.BodyTypeId equals bodytype.Id
 
                              select new VehicleDTO()
                              {
@@ -212,7 +217,9 @@ namespace CarMatt.Data.Services.VehicleModule
 
                                  Kilometres = vehicle.Kilometres,
 
-                                 BodyType = vehicle.BodyType,
+                                 BodyTypeId = vehicle.BodyTypeId,
+
+                                 BodyTypeName = bodytype.Name,
 
                                  StyleTrim = vehicle.StyleTrim,
 
@@ -244,7 +251,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                              });
 
-                       return await makes.Where(x=>x.Id==Id).FirstOrDefaultAsync();
+                return await makes.Where(x => x.Id == Id).FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {
@@ -275,7 +282,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     Kilometres = vehicleDTO.Kilometres,
 
-                    BodyType = vehicleDTO.BodyType,
+                    BodyTypeId = vehicleDTO.BodyTypeId,
 
                     StyleTrim = vehicleDTO.StyleTrim,
 
@@ -377,7 +384,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     s.Kilometres = vehicleDTO.Kilometres;
 
-                    s.BodyType = vehicleDTO.BodyType;
+                    s.BodyTypeId = vehicleDTO.BodyTypeId;
 
                     s.StyleTrim = vehicleDTO.StyleTrim;
 

@@ -10,11 +10,13 @@ namespace CarMatt.Data.DTOs.VehicleModule
         public decimal Price { get; set; }
         public Guid MakeId { get; set; }
         public string MakeName { get; set; }
+        public string FullName => MakeName + " " + ModelName;
         public long AvailabilityStatus { get; set; }
         public Guid ModelId { get; set; }
         public string ModelName { get; set; }
         public string Kilometres { get; set; }
-        public string BodyType { get; set; }
+        public Guid BodyTypeId { get; set; }
+        public string BodyTypeName { get; set; }
         public string StyleTrim { get; set; }
         public string Engine { get; set; }
         public string Drivetrain { get; set; }
