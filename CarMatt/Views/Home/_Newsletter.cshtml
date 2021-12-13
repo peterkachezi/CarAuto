@@ -3,11 +3,84 @@
 <section class="newsletter">
 
     <h3>subscribe for latest updates</h3>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, suscipit.</p>
+    <p>We make sure that every car that drives away from our showroom is in tip top condition..</p>
 
-    <form action="">
-        <input type="email" placeholder="enter your email">
-        <input type="submit" value="subscribe">
+    <form id="frmSubscribe">
+        <input type="email" placeholder="enter your email" id="txtEmailSubscribe" name="Email">
+        <input type="submit" id="btnSubmitSubscribe" value="subscribe">
     </form>
 
 </section>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<link href="~/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/sweetalart/sweetalert.min.js"></script>
+
+<script>
+
+
+    $('#btnSubmitSubscribe').click(function (evt) {
+
+        if ($('#txtEmailSubscribe').val() == '') {
+            $('#txtEmailSubscribe').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Email is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+             
+
+        $("#divLoader").show();
+
+        var data = $("#frmSubscribe").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Home/Subscription/",
+            data: data,
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    $("#divLoader").hide();
+
+                    $('#divAlart').show()
+
+                    $('#txtAlart').text(response.responseText);
+
+                    setTimeout(function () { location.reload(); }, 2000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                    $("#divLoader").hide();
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+                $("#divLoader").hide();
+            }
+        })
+
+    });
+
+
+
+
+</script>
+

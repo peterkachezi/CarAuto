@@ -5,18 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link href="~/homepage/all.min.css" rel="stylesheet" />
 
     <link href="~/homepage/swiper-bundle.min.css" rel="stylesheet" />
+
     <!-- font awesome cdn link  -->
-    @*<link href="~/homepage/all.min.css" rel="stylesheet" />*@
+    <link href="~/homepage/all.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- custom css file link  -->
     <link href="~/css/style.css" rel="stylesheet" />
-    
+
+    <link href="~/dashboard/bootstrap.min.css" rel="stylesheet" />
 
     <link rel="icon" href="images/favicon.ico" type="image/ico" />
+
     <title>Express | Store </title>
 </head>
 <body>
@@ -24,7 +30,7 @@
     @await Html.PartialAsync("_Header");
 
 
-    <div class="login-form-container">
+    @*<div class="login-form-container">
 
         <span id="close-login-form" class="fas fa-times"></span>
 
@@ -42,18 +48,36 @@
             <p> don't have an account <a href="#">create one</a> </p>
         </form>
 
-    </div>
+    </div>*@
 
-    <section class="home" id="home">
 
-        <h3 data-speed="-2" class="home-parallax">find your car</h3>
 
-        <img data-speed="5" class="home-parallax" src="~/images/home-img.png" alt="">
 
-        <a data-speed="7" href="#" class="btn home-parallax">explore cars</a>
 
-    </section>
+        <div id="carouselExampleSlidesOnly div" class="carousel slide" data-ride="carousel">
 
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100 img-fluid" src="~/slideimages/Image1.jpeg" alt="First slide" style="height: 85em; ">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 img-fluid" src="~/slideimages/Image3.jpeg" alt="Second slide" style="height: 85em; ">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 img-fluid" src="~/slideimages/Image4.jpeg" alt="Second slide" style="height: 85em; ">
+
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 img-fluid" src="~/slideimages/Image5.jpeg" alt="Second slide" style="height: 85em; ">
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+ 
     <section class="icons-container">
 
         <div class="icons">
@@ -61,7 +85,7 @@
             <div class="content">
                 <h3>150+</h3>
                 <p>branches</p>
-              
+
             </div>
         </div>
 
@@ -93,272 +117,33 @@
 
 
 
-    <!--<div class="container">
-        <h3>Find Your Dream Car <span>(Easy search from here)</span></h3>
-        <div class="row">
-            <form action="http://autopediainc.com/Autopedia/search" method="POST">
-
-                <div class="form-group col-md-3 col-sm-6 black_input">
-                    <div class="select">
-                        <select class="form-control" name="make">
-                            <option selected="" disabled="">Select Make</option>
-                            <option value="7">Audi</option>
-                            <option value="3">BMW</option>
-                            <option value="22">Chevrolet</option>
-                            <option value="18">Daihatsu</option>
-                            <option value="13">Ford</option>
-                            <option value="8">Honda</option>
-                            <option value="20">Hyundai</option>
-                            <option value="14">Hyundai</option>
-                            <option value="9">Isuzu</option>
-                            <option value="21">Kia</option>
-                            <option value="12">Land Rover</option>
-                            <option value="17">Lexus</option>
-                            <option value="6">Mazda</option>
-                            <option value="11">Mercedes Benz</option>
-                            <option value="5">Mitsubishi</option>
-                            <option value="2">Nissan</option>
-                            <option value="15">Peugeot</option>
-                            <option value="4">Subaru</option>
-                            <option value="16">Suzuki</option>
-                            <option value="1">Toyota</option>
-                            <option value="10">Volkswagen</option>
-                            <option value="19">Volvo</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-md-3 col-sm-6 black_input">
-                    <div class="select">
-                        <select class="form-control" name="body_type">
-                            <option>Body Type</option>
-                            <option value="7">Bus</option>
-                            <option value="6">Convertible</option>
-                            <option value="2">Hatchback</option>
-                            <option value="10">Machinery</option>
-                            <option value="13">Mini</option>
-                            <option value="5">Pickup</option>
-                            <option value="1">Saloon</option>
-                            <option value="3">Station Wagon</option>
-                            <option value="4">SUV</option>
-                            <option value="11">Tractor</option>
-                            <option value="12">Trailer</option>
-                            <option value="9">Truck</option>
-                            <option value="8">Van</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-md-2 col-sm-6 black_input">
-                    <div class="select">
-                        <select class="form-control" name="model_year">
-                            <option selected="" disabled="">Year of Model </option>
-                            <option value="1991">1991</option>
-                            <option value="1992">1992</option>
-                            <option value="1993">1993</option>
-                            <option value="1994">1994</option>
-                            <option value="1995">1995</option>
-                            <option value="1996">1996</option>
-                            <option value="1997">1997</option>
-                            <option value="1998">1998</option>
-                            <option value="1999">1999</option>
-                            <option value="2000">2000</option>
-                            <option value="2001">2001</option>
-                            <option value="2002">2002</option>
-                            <option value="2003">2003</option>
-                            <option value="2004">2004</option>
-                            <option value="2005">2005</option>
-                            <option value="2006">2006</option>
-                            <option value="2007">2007</option>
-                            <option value="2008">2008</option>
-                            <option value="2009">2009</option>
-                            <option value="2010">2010</option>
-                            <option value="2011">2011</option>
-                            <option value="2012">2012</option>
-                            <option value="2013">2013</option>
-                            <option value="2014">2014</option>
-                            <option value="2015">2015</option>
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                        </select>
-                    </div>
-                </div>-->
-    <!-- <div class="form-group col-md-3 col-sm-6 black_input">
-      <div class="select">
-        <select class="form-control">
-          <option>Condition </option>
-          <option value="New Car">New Car </option>
-          <option value="Used Car">Used Car </option>
-        </select>
-      </div>
-    </div> -->
-    <!--<div class="form-group col-md-2 col-sm-6 black_input">
-                    <div class="select">
-                        <select class="form-control" name="min_price">
-                            <option>Min price </option>
-                            <option value="200000">200,000</option>
-                            <option value="500000">500,000</option>
-                            <option value="800000">800,000</option>
-                            <option value="1100000">1,100,000</option>
-                            <option value="1400000">1,400,000</option>
-                            <option value="1700000">1,700,000</option>
-                            <option value="2000000">2,000,000</option>
-                            <option value="2300000">2,300,000</option>
-                            <option value="2600000">2,600,000</option>
-                            <option value="2900000">2,900,000</option>
-                            <option value="3200000">3,200,000</option>
-                            <option value="3500000">3,500,000</option>
-                            <option value="3800000">3,800,000</option>
-                            <option value="4100000">4,100,000</option>
-                            <option value="4400000">4,400,000</option>
-                            <option value="4700000">4,700,000</option>
-                            <option value="5000000">5,000,000</option>
-                            <option value="5300000">5,300,000</option>
-                            <option value="5600000">5,600,000</option>
-                            <option value="5900000">5,900,000</option>
-                            <option value="6200000">6,200,000</option>
-                            <option value="6500000">6,500,000</option>
-                            <option value="6800000">6,800,000</option>
-                            <option value="7100000">7,100,000</option>
-                            <option value="7400000">7,400,000</option>
-                            <option value="7700000">7,700,000</option>
-                            <option value="8000000">8,000,000</option>
-                            <option value="8300000">8,300,000</option>
-                            <option value="8600000">8,600,000</option>
-                            <option value="8900000">8,900,000</option>
-                            <option value="9200000">9,200,000</option>
-                            <option value="9500000">9,500,000</option>
-                            <option value="9800000">9,800,000</option>
-                            <option value="10100000">10,100,000</option>
-                            <option value="10400000">10,400,000</option>
-                            <option value="10700000">10,700,000</option>
-                            <option value="11000000">11,000,000</option>
-                            <option value="11300000">11,300,000</option>
-                            <option value="11600000">11,600,000</option>
-                            <option value="11900000">11,900,000</option>
-                            <option value="12200000">12,200,000</option>
-                            <option value="12500000">12,500,000</option>
-                            <option value="12800000">12,800,000</option>
-                            <option value="13100000">13,100,000</option>
-                            <option value="13400000">13,400,000</option>
-                            <option value="13700000">13,700,000</option>
-                            <option value="14000000">14,000,000</option>
-                            <option value="14300000">14,300,000</option>
-                            <option value="14600000">14,600,000</option>
-                            <option value="14900000">14,900,000</option>
-                            <option value="15200000">15,200,000</option>
-                            <option value="15500000">15,500,000</option>
-                            <option value="15800000">15,800,000</option>
-                            <option value="16100000">16,100,000</option>
-                            <option value="16400000">16,400,000</option>
-                            <option value="16700000">16,700,000</option>
-                            <option value="17000000">17,000,000</option>
-                            <option value="17300000">17,300,000</option>
-                            <option value="17600000">17,600,000</option>
-                            <option value="17900000">17,900,000</option>
-                            <option value="18200000">18,200,000</option>
-                            <option value="18500000">18,500,000</option>
-                            <option value="18800000">18,800,000</option>
-                            <option value="19100000">19,100,000</option>
-                            <option value="19400000">19,400,000</option>
-                            <option value="19700000">19,700,000</option>
-                            <option value="20000000">20,000,000</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-md-2 col-sm-6 black_input">
-                    <div class="select">
-                        <select class="form-control" name="max_price">
-                            <option>Max price </option>
-                            <option value="200000">200,000</option>
-                            <option value="500000">500,000</option>
-                            <option value="800000">800,000</option>
-                            <option value="1100000">1,100,000</option>
-                            <option value="1400000">1,400,000</option>
-                            <option value="1700000">1,700,000</option>
-                            <option value="2000000">2,000,000</option>
-                            <option value="2300000">2,300,000</option>
-                            <option value="2600000">2,600,000</option>
-                            <option value="2900000">2,900,000</option>
-                            <option value="3200000">3,200,000</option>
-                            <option value="3500000">3,500,000</option>
-                            <option value="3800000">3,800,000</option>
-                            <option value="4100000">4,100,000</option>
-                            <option value="4400000">4,400,000</option>
-                            <option value="4700000">4,700,000</option>
-                            <option value="5000000">5,000,000</option>
-                            <option value="5300000">5,300,000</option>
-                            <option value="5600000">5,600,000</option>
-                            <option value="5900000">5,900,000</option>
-                            <option value="6200000">6,200,000</option>
-                            <option value="6500000">6,500,000</option>
-                            <option value="6800000">6,800,000</option>
-                            <option value="7100000">7,100,000</option>
-                            <option value="7400000">7,400,000</option>
-                            <option value="7700000">7,700,000</option>
-                            <option value="8000000">8,000,000</option>
-                            <option value="8300000">8,300,000</option>
-                            <option value="8600000">8,600,000</option>
-                            <option value="8900000">8,900,000</option>
-                            <option value="9200000">9,200,000</option>
-                            <option value="9500000">9,500,000</option>
-                            <option value="9800000">9,800,000</option>
-                            <option value="10100000">10,100,000</option>
-                            <option value="10400000">10,400,000</option>
-                            <option value="10700000">10,700,000</option>
-                            <option value="11000000">11,000,000</option>
-                            <option value="11300000">11,300,000</option>
-                            <option value="11600000">11,600,000</option>
-                            <option value="11900000">11,900,000</option>
-                            <option value="12200000">12,200,000</option>
-                            <option value="12500000">12,500,000</option>
-                            <option value="12800000">12,800,000</option>
-                            <option value="13100000">13,100,000</option>
-                            <option value="13400000">13,400,000</option>
-                            <option value="13700000">13,700,000</option>
-                            <option value="14000000">14,000,000</option>
-                            <option value="14300000">14,300,000</option>
-                            <option value="14600000">14,600,000</option>
-                            <option value="14900000">14,900,000</option>
-                            <option value="15200000">15,200,000</option>
-                            <option value="15500000">15,500,000</option>
-                            <option value="15800000">15,800,000</option>
-                            <option value="16100000">16,100,000</option>
-                            <option value="16400000">16,400,000</option>
-                            <option value="16700000">16,700,000</option>
-                            <option value="17000000">17,000,000</option>
-                            <option value="17300000">17,300,000</option>
-                            <option value="17600000">17,600,000</option>
-                            <option value="17900000">17,900,000</option>
-                            <option value="18200000">18,200,000</option>
-                            <option value="18500000">18,500,000</option>
-                            <option value="18800000">18,800,000</option>
-                            <option value="19100000">19,100,000</option>
-                            <option value="19400000">19,400,000</option>
-                            <option value="19700000">19,700,000</option>
-                            <option value="20000000">20,000,000</option>
-                        </select>
-                    </div>
-                </div>
 
 
 
-                <div class="form-group col-md-offset-4 col-md-3 col-sm-6">
-                    <button type="submit" name="search_car" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Car </button>
-                </div>
-            </form>
-        </div>
-    </div>-->
-    @*@await Html.PartialAsync("_Vehicles");*@
+
+
+
+
+
+
+
+
+
+
+
     @await Html.PartialAsync("_Featured");
 
-    @await Html.PartialAsync("_OurServices");
+
+
+
+
+    @*@await Html.PartialAsync("_Featured");*@
+
+
 
     @await Html.PartialAsync("_Newsletter");
 
-    @await Html.PartialAsync("_Reviews");
+    @*@await Html.PartialAsync("_Reviews");*@
 
     @await Html.PartialAsync("_Contact");
 
@@ -367,9 +152,23 @@
 
 
     <script src="~/homepage/swiper-bundle.min.js"></script>
-
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
     <script src="~/js/script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
 
+<style>
+    .div {
+      
+        overflow: hidden;
+        position: relative;
+    }
 
+        .div img {
+            position: absolute;
+        }
+</style>

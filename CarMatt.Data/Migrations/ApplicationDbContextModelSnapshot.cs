@@ -437,6 +437,23 @@ namespace CarMatt.Data.Migrations
                     b.ToTable("Images");
                 });
 
+            modelBuilder.Entity("CarMatt.Data.Models.Subscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscriptions");
+                });
+
             modelBuilder.Entity("CarMatt.Data.Models.Vehicle", b =>
                 {
                     b.Property<Guid>("Id")

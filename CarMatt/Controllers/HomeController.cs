@@ -9,17 +9,38 @@ using CarMatt.Data.Services.FeedBackModule;
 using System;
 using CarMatt.Data.Services.SMSModule;
 using Microsoft.EntityFrameworkCore.Internal;
+using CarMatt.Data.Services.CarMakeModule;
+using CarMatt.Data.Services.CarModelModule;
+using CarMatt.Data.Services.BodyTypeModule;
+using CarMatt.Data.DTOs.VehicleModule;
+
+using CarMatt.EmailServiceModule;
+using CarMatt.Data.DTOs.SubscriptionModule;
+using CarMatt.Data.Services.SubscriptionModule;
 
 namespace CarMatt.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IVehicleService vehicleService;
+
         private readonly ICarImageService carImageService;
+
         private readonly IFeedBackService feedBackService;
+
         private readonly IMessagingService messagingService;
 
-        public HomeController(IMessagingService messagingService, IVehicleService vehicleService, ICarImageService carImageService, IFeedBackService feedBackService)
+        private readonly ICarMakeService carMakeService;
+
+        private readonly IModelService modelService;
+
+        private readonly IBodyTypeService bodyTypeService;
+
+        private readonly IEmailService emailService;
+
+        private readonly ISubscriptionService subscriptionService;
+
+        public HomeController(ISubscriptionService subscriptionService, IEmailService emailService, IBodyTypeService bodyTypeService, IModelService modelService, ICarMakeService carMakeService, IMessagingService messagingService, IVehicleService vehicleService, ICarImageService carImageService, IFeedBackService feedBackService)
         {
             this.vehicleService = vehicleService;
 
@@ -28,23 +49,61 @@ namespace CarMatt.Controllers
             this.feedBackService = feedBackService;
 
             this.messagingService = messagingService;
+
+            this.modelService = modelService;
+
+            this.carMakeService = carMakeService;
+
+            this.bodyTypeService = bodyTypeService;
+
+            this.emailService = emailService;
+
+            this.subscriptionService = subscriptionService;
+
         }
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(Guid makeId, Guid bodyTypeId, string yearOfProduction, decimal pricefrom, decimal priceto)
         {
-           // var vehicles = (await vehicleService.GetAll()).ToList();
 
-            var vehicles = (await vehicleService.GetAll()).Select(p => p.Id).ToList();
+            try
+            {
 
-            var all = (await carImageService.GetAll()).Where(e => vehicles.Contains(e.VehicleId)).ToList();
+                if (makeId == null || makeId == Guid.Empty || bodyTypeId == null || bodyTypeId == Guid.Empty ||
+                    yearOfProduction == null || pricefrom.Equals(null) || priceto.Equals(null))
+                {
+                    var all = (await carImageService.GetAll()).ToList();
 
-            var images = all.GroupBy(x => x.VehicleId).Select(g => g.First());
-   
+                    var result = all.GroupBy(test => test.VehicleId).Select(grp => grp.First()).ToList();
 
+                    ViewBag.Body = await bodyTypeService.GetAll();
 
+                    ViewBag.Make = await carMakeService.GetAll();
 
-            return View(vehicles);
+                    return View(result);
+                }
+                else
+                {
+                    var all = (await carImageService.GetAll()).Where(x => x.MakeId == makeId && x.BodyTypeId == bodyTypeId && x.YearOfProduction == yearOfProduction);
+
+                    var filterPrice = all.Where(p => p.Price >= pricefrom && p.Price <= priceto).ToList();
+
+                    var result = filterPrice.GroupBy(test => test.VehicleId).Select(grp => grp.First()).ToList();
+
+                    ViewBag.Body = await bodyTypeService.GetAll();
+
+                    ViewBag.Make = await carMakeService.GetAll();
+
+                    return View(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+
         }
-
         public async Task<ActionResult> CustomerFeedBack(FeedBackDTO feedBackDTO)
         {
             try
@@ -70,5 +129,46 @@ namespace CarMatt.Controllers
             }
         }
 
+        public async Task<ActionResult> Subscription(SubscriptionDTO subscriptionDTO)
+        {
+            try
+            {
+                var results = await subscriptionService.Create(subscriptionDTO);
+
+                if (results != null)
+                {
+                    var sendemail = emailService.SendSubscriptionNotification(subscriptionDTO);
+
+                    return Json(new { success = true, responseText = "Your have successfully subscribed" });
+                }
+                else
+                {
+                    return Json(new { success = false, responseText = "Record has been  not been saved" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+
+
+        public async Task<ActionResult> VehicleDetails(Guid Id)
+        {
+            CombinedDTO combinedDTO = new CombinedDTO()
+            {
+            };
+
+            combinedDTO.vehicleDTO = await vehicleService.GetById(Id);
+
+            combinedDTO.singleImageDTO = await carImageService.GetByCardIdSingle(Id);
+
+            combinedDTO.imageDTO = await carImageService.GetByCarId(Id);
+
+            return View(combinedDTO);
+        }
     }
 }

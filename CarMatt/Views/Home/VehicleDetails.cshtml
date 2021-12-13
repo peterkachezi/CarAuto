@@ -1,0 +1,229 @@
+﻿@model CarMatt.Data.DTOs.VehicleModule.CombinedDTO
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/homepage/all.min.css" rel="stylesheet" />
+    <link href="~/homepage/swiper-bundle.min.css" rel="stylesheet" />
+    <!-- font awesome cdn link  -->
+    <link href="~/homepage/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- custom css file link  -->
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/dashboard/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+    <title>Express | Store </title>
+</head>
+@await Html.PartialAsync("_Header");
+@if (Model.singleImageDTO == null && Model.singleImageDTO == null)
+{
+    var url = "/Home/";
+
+    Context.Response.Redirect(url);
+}
+
+
+else
+{
+<body>
+
+    <div class="card-container">
+
+        <div class="float-layout">
+            <div class="card-image">
+                <img src="~/uploads/@Model.singleImageDTO.ImageName" class="img-fluid border-blue" alt="Responsive image" style="border-radius: 1em; margin-top:10em;height:auto;">
+                <div class="card">
+                    <div class="card-title">
+                        @Model.vehicleDTO.MakeName
+                        @Model.vehicleDTO.ModelName
+                        <span style="color:lightseagreen;">(@Model.vehicleDTO.Price.ToString("N")) </span> Ksh
+                    </div>
+                    <div class="card-desc" style="margin-left:2em;">
+
+                        <div class="row">
+
+                            <div class="col-md-7">
+                                <table class="table-responsive table-striped table-responsive-lg" id="customers" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Make</th>
+                                            <td>: @Model.vehicleDTO.MakeName</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Model</th>
+                                            <td>: @Model.vehicleDTO.ModelName</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Kilometres</th>
+                                            <td>: @Model.vehicleDTO.Kilometres</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Body Type</th>
+                                            <td>: @Model.vehicleDTO.BodyTypeName</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Style/trim</th>
+                                            <td>: @Model.vehicleDTO.StyleTrim</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Engine</th>
+                                            <td>: @Model.vehicleDTO.Engine</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Drivetrain</th>
+                                            <td>: @Model.vehicleDTO.Drivetrain</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Transmission</th>
+                                            <td>: @Model.vehicleDTO.Transmission</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Exterior Color</th>
+                                            <td>: @Model.vehicleDTO.ExteriorColor</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Exterior Color</th>
+                                            <td>: @Model.vehicleDTO.ExteriorColor</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <th>Interior color</th>
+                                            <td>: @Model.vehicleDTO.InteriorColor</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Passangers/Doors</th>
+                                            <td>: @Model.vehicleDTO.Passangers</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th> Fuel Type</th>
+                                            <td>: @Model.vehicleDTO.FuelType</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th> City Fuel Economy</th>
+                                            <td>: @Model.vehicleDTO.CityFuelEconomy</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Hwy Fuel Economy</th>
+                                            <td>: @Model.vehicleDTO.HighWayFuelEconomy</td>
+                                        </tr>
+
+
+
+
+                                    </thead>
+                                </table>
+                            </div>
+
+
+
+                            <div class="col-md-4 vl">
+
+                                <br />
+                                <div class="sidebar_widget">
+                                    <div class="widget_heading">
+                                        <h3>Contact Us </h3>
+                                    </div>
+                                    <div class="dealer_detail">
+
+                                        <p><span style="color:red;">info@ipautomotors.com</span></p>
+                                        <p><span> +254729884569 / +254704509484</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm ">
+                @if (Model.imageDTO != null)
+                {
+                    foreach (var item in Model.imageDTO)
+                    {
+                <a>
+                    <img src="~/uploads/@item.ImageName" class="img-fluid" alt="Responsive image" style="height: 17em;width:25em; border-radius: 1em;">
+
+                </a>
+
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+
+
+    <br />
+    <br />
+
+
+
+
+
+
+
+    @*@await Html.PartialAsync("_PopularVehicles");*@
+
+
+    @await Html.PartialAsync("_Footer");
+
+
+
+    <script src="~/homepage/swiper-bundle.min.js"></script>
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+
+</body>
+
+
+
+}
+
+
+
+
+</html>
+
+<link href="~/css/details.css" rel="stylesheet" />
+
+<style>
+    .zoom {
+          
+        transition: transform .2s; /* Animation */
+ 
+    }
+
+        .zoom:hover {
+            transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+    .vl {
+        border-left: 6px solid green;
+        height: auto;
+    }
+</style>

@@ -81,33 +81,82 @@ namespace CarMatt.Data.Services.ImageModule
             }
         }
 
+
         public async Task<List<ImageDTO>> GetAll()
         {
             try
             {
-                var image = await context.Images.ToListAsync();
+                var makes = (from img in context.Images
 
-                var images = new List<ImageDTO>();
+                             join vehicle in context.Vehicles on img.VehicleId equals vehicle.Id
 
-                foreach (var item in image)
-                {
-                    var data = new ImageDTO
-                    {
-                        Id = item.Id,
+                             join user in context.AppUser on vehicle.CreatedBy equals user.Id
 
-                        VehicleId = item.VehicleId,
+                             join make in context.CarMakes on vehicle.MakeId equals make.Id
 
-                        CreateDate = item.CreateDate,
+                             join model in context.CarModels on vehicle.ModelId equals model.Id
 
-                        ImageName = item.ImageName,
+                             join bodytype in context.BodyTypes on vehicle.BodyTypeId equals bodytype.Id
 
-                    };
+                             select new ImageDTO()
+                             {
+                                 Id = vehicle.Id,
 
-                    images.Add(data);
+                                 VehicleId = img.VehicleId,
 
-                }
+                                 ImageName=img.ImageName,
 
-                return images;
+                                 Price = vehicle.Price,
+
+                                 Quantity = vehicle.Quantity,
+
+                                 MakeId = vehicle.MakeId,
+
+                                 MakeName = make.Name,
+
+                                 AvailabilityStatus = vehicle.AvailabilityStatus,
+
+                                 ModelId = vehicle.ModelId,
+
+                                 ModelName = model.Name,
+
+                                 Kilometres = vehicle.Kilometres,
+
+                                 BodyTypeId = vehicle.BodyTypeId,
+
+                                 BodyTypeName = bodytype.Name,
+
+                                 StyleTrim = vehicle.StyleTrim,
+
+                                 Engine = vehicle.Engine,
+
+                                 Drivetrain = vehicle.Drivetrain,
+
+                                 Transmission = vehicle.Transmission,
+
+                                 ExteriorColor = vehicle.ExteriorColor,
+
+                                 InteriorColor = vehicle.InteriorColor,
+
+                                 Passangers = vehicle.Passangers,
+
+                                 FuelType = vehicle.FuelType,
+
+                                 CityFuelEconomy = vehicle.CityFuelEconomy,
+
+                                 HighWayFuelEconomy = vehicle.HighWayFuelEconomy,
+
+                                 YearOfProduction = vehicle.YearOfProduction,
+
+                                 CreateDate = vehicle.CreateDate,
+
+                                 CreatedBy = vehicle.CreatedBy,
+
+                                 CreatedByName = user.FullName,
+
+                             }).OrderByDescending(x => x.CreateDate).ToListAsync();
+
+                return await makes;
             }
             catch (Exception ex)
             {
@@ -115,6 +164,9 @@ namespace CarMatt.Data.Services.ImageModule
 
                 return null;
             }
+
         }
+
+
     }
 }

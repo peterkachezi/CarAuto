@@ -1,189 +1,247 @@
-﻿@model IEnumerable<CarMatt.Data.DTOs.VehicleModule.VehicleDTO>
+﻿@model IEnumerable<CarMatt.Data.DTOs.ImageModule.ImageDTO>
+<section class="icons-vehicles ">
 
 
-<section class="featured" id="featured">
+        @if (Model != null && Model.Count() > 0)
+        {
 
-    <h1 class="heading"> <span>featured</span> cars </h1>
-
-
-    <div class="swiper featured-slider">
-        <div class="swiper-wrapper">
-            @if (Model != null && Model.Count() > 0)
+            @foreach (var item in Model)
             {
 
-                @foreach (var item in Model)
-                {
-                    <div class="swiper-slide box">
-                        <img src="~/images/car-1.png" alt="">
-                        <div class="content">
-                            <h3>@item.MakeName</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                <div class="card" id="btnCard">
+
+                    <a href="~/Home/VehicleDetails?Id=@item.VehicleId">
+
+                        <img src="~/uploads/@item.ImageName" class="img-fluid" alt="Responsive image" style="height: 20em; width: 100%; border-radius: 1em; ">
+
+                    </a>
+                    <div class="container">
+                        <br />
+                        <h4><b>@item.FullName</b></h4>
+                        <hr />
+                        <p style="font-size:1.5em;color:tomato;">Ksh @item.Price.ToString("N")</p>
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+                                <p><strong>@item.Engine</strong></p>
                             </div>
-                            <div class="price">@item.Price</div>
-                            <a href="#" class="btn">check out</a>
+
+                            <div class="col-md-6">
+                                <p> <strong>@item.BodyTypeName</strong></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p><strong>@item.YearOfProduction</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>@item.FuelType</strong></p>
+                            </div>
+
+
+
+                            <div class="col-md-6">
+                                <p><strong>@item.Passangers</strong></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p><strong>@item.Kilometres</strong></p>
+                            </div>
                         </div>
+
+
                     </div>
-                }
+                </div>
+
 
             }
 
+        }
+
+
+    </section>
+
+
+<div class="container">
+    <div class="row justify-content-around">
+
+        <div class="col-md-3">
+            <div class="card" style="width:26rem;">
+                <div class="inner">
+                    <img class="card-img-top" src="~/images/car-7.png" alt="Card image cap">
+
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
         </div>
 
 
 
-
-
-
-
-        @*<div class="swiper-wrapper">
-
-            <div class="swiper-slide box">
-                <img src="~/images/car-1.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <img src="~/images/car-2.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <img src="~/images/car-3.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
-                </div>
-            </div>
-
-            <div class="swiper-slide box">
-                <img src="~/images/car-4.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="swiper-pagination"></div>*@
 
     </div>
+</div>
 
-    @*<div class="swiper featured-slider">
 
-        <div class="swiper-wrapper">
+<div class="container">
+    <div class="row justify-content-around">
+        @if (Model != null && Model.Count() > 0)
+        {
 
-            <div class="swiper-slide box">
-                <img src="~/images/car-5.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3">
+                    <div class="card" style="width:26rem;">
+                        <div class="inner">
+                            <img class="card-img-top" src="~/uploads/@item.ImageName" alt="Card image cap"   style="height: 20em; width: 100%; border-radius: 1em; ">
+
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
                     </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
                 </div>
-            </div>
 
-            <div class="swiper-slide box">
-                <img src="~/images/car-6.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
-                </div>
-            </div>
 
-            <div class="swiper-slide box">
-                <img src="~/images/car-7.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
-                </div>
-            </div>
+            }
 
-            <div class="swiper-slide box">
-                <img src="~/images/car-8.png" alt="">
-                <div class="content">
-                    <h3>new model</h3>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price">$55,000/-</div>
-                    <a href="#" class="btn">check out</a>
-                </div>
-            </div>
+        }
 
-        </div>
 
-        <div class="swiper-pagination"></div>
+    </div>
+</div>
 
-    </div>*@
 
-</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+    /*p {
+                font-size: 1em;
+            }*/
+
+
+
+
+    .container {
+        margin-top: 5%;
+    }
+
+    .inner {
+        overflow: hidden;
+    }
+
+
+        .inner img {
+            transition: all 1.5s ease;
+        }
+
+        .inner:hover img {
+            transform: scale(1.5);
+        }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        border-radius: 1em;
+    }
+
+        .card:hover {
+            border-radius: 1em;
+            box-shadow: 0 8px 16px 0 #006699;
+        }
+
+    /*.container {
+                padding: 2px 16px;
+            }*/
+
+    /* .card {
+                background-color: #eeeeee;
+                padding: 2rem;
+                border-radius: 0.5rem;
+                box-shadow: var(--box-shadow);
+                border: var(--border);
+            }*/
+
+    /*.inputs {
+                border-radius: 0.5rem;
+                padding: 1rem 1.2rem;
+                font-size: 1.6rem;
+                text-transform: none;
+                border: var(--border);
+                margin: 0.7rem 0;
+            }
+
+            .label {
+                font-size: 1.6rem;
+                text-transform: none;
+            }*/
+</style>
+
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<link href="~/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/sweetalart/sweetalert.min.js"></script>
+
+<script>
+
+
+
+    function SearchCars() {
+        // Stop the button from submitting the form:
+        evt.preventDefault();
+
+        // Serialize the entire form:
+
+
+        var makeId = document.getElementById('txtmakeId').value;
+        var bodyTypeId = document.getElementById('txtbodyTypeId').value;
+        var yearOfProduction = document.getElementById('txtyearOfProduction').value;
+        var pricefrom = document.getElementById('txtpricefrom').value;
+        var priceto = document.getElementById('txtpriceto').value;
+
+        console.log(makeId);
+
+        //window.location.href = "/Home/Index?makeId=" + makeId + "&bodyTypeId=" + bodyTypeId + "&yearOfProduction=" + yearOfProduction + "&pricefrom=" + pricefrom + "&priceto=" + priceto +;
+
+
+    }
+
+    $('#btnFind').click(function () {
+
+
+        var makeId = document.getElementById('txtmakeId').value;
+        var bodyTypeId = document.getElementById('txtbodyTypeId').value;
+        var yearOfProduction = document.getElementById('txtyearOfProduction').value;
+        var pricefrom = document.getElementById('txtpricefrom').value;
+        var priceto = document.getElementById('txtpriceto').value;
+
+        console.log(makeId);
+
+        window.location.href = "/Home/Index?makeId=" + makeId + "&bodyTypeId=" + bodyTypeId + "&yearOfProduction=" + yearOfProduction + "&pricefrom=" + pricefrom + "&priceto=" + priceto;
+
+
+    });
+
+</script>

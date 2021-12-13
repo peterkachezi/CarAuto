@@ -23,6 +23,7 @@ namespace CarMatt.Data.Models
         public virtual DbSet<CarModel> CarModels { get; set; }
         public virtual DbSet<BodyType> BodyTypes { get; set; }
         public virtual DbSet<FeedBack> FeedBacks { get; set; }
+        public virtual DbSet<Subscription> Subscriptions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

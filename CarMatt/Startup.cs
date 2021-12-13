@@ -9,6 +9,7 @@ using CarMatt.Data.Services.CountyModule;
 using CarMatt.Data.Services.FeedBackModule;
 using CarMatt.Data.Services.ImageModule;
 using CarMatt.Data.Services.SMSModule;
+using CarMatt.Data.Services.SubscriptionModule;
 using CarMatt.Data.Services.VehicleModule;
 using CarMatt.EmailServiceModule;
 using CarMatt.Helpers;
@@ -43,9 +44,12 @@ namespace CarMatt
             });
 
             services.AddRazorPages();
+
             services.AddMvc();
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Transient);
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+            ServiceLifetime.Transient);
 
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, ApplicationUserClaimsPrincipalFactory>();
@@ -59,10 +63,9 @@ namespace CarMatt
             services.AddScoped<IBodyTypeService, BodyTypeService>();
             services.AddScoped<IFeedBackService, FeedBackService>();
             services.AddScoped<IMessagingService, MessagingService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
 
             services.AddControllersWithViews();
-
-
 
         }
 
@@ -103,12 +106,7 @@ namespace CarMatt
                 endpoints.MapControllerRoute(
                 name: "Agent",
                 pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-
-
+                             
                 endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
