@@ -12,7 +12,7 @@
     </div>
     <div class="x_content">
 
-   
+
 
         <div class="col-md-7 col-sm-7 ">
             <div class="product-image">
@@ -132,10 +132,10 @@
                     <br>
                 </div>
             </div>
-
+            <input type="hidden" id="txtId" value="@Model.vehicleDTO.Id" />
             <div class="">
 
-                <button type="button" class="btn btn-danger btn-lg pull-right">Delete This Car</button>
+                <button type="button" class="btn btn-danger btn-lg pull-right" onclick="Delete()">Delete This Car</button>
             </div>
 
 
@@ -155,7 +155,6 @@
     }
 
     .geeks {
-       
         overflow: hidden;
         margin: 0 auto;
     }
@@ -169,3 +168,104 @@
             transform: scale(1.5);
         }
 </style>
+
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<link href="~/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/sweetalart/sweetalert.min.js"></script>
+
+<script>
+
+
+    function Delete() {
+
+        $("#divLoader").show();
+
+        var getid = document.getElementById("txtId").value;
+             
+        var id = getid;
+
+        swal(
+
+            {
+                title: "Are you sure?",
+
+                text: "Once deleted, you will not be able to recover this  file!",
+
+                type: "success",
+
+                showCancelButton: true,
+
+                confirmButtonColor: "##62b76e",
+
+                confirmButtonText: "Yes, Procceed!",
+
+                closeOnConfirm: false
+            },
+
+            function () {
+
+                $.ajax({
+
+                    type: "GET",
+
+                    url: "/Administrator/Cars/Delete/" + id,
+
+                    success: function (response) {
+
+                        if (response.success) {
+
+                            swal({
+
+                                position: 'top-end',
+
+                                type: "success",
+
+                                title: response.responseText,
+
+                                showConfirmButton: false,
+
+                                // timer: 2000,
+
+                            });
+
+                            setTimeout(function () { window.location = "/Administrator/Cars/"; }, 3000);
+
+                        }
+
+                        else {
+                            swal({
+                                position: 'top-end',
+                                type: "error",
+                                title: response.responseText,
+                                showConfirmButton: true,
+                                timer: 5000,
+                            });
+                            $("#divLoader").hide();
+                        }
+
+                    },
+                    error: function (response) {
+                        swal({
+                            position: 'top-end',
+                            type: "error",
+                            title: "Server error ,kindly contact the admin for assistance",
+                            showConfirmButton: false,
+                            timer: 5000,
+                        });
+
+                    }
+
+                })
+
+            }
+        );
+    }
+</script>
+
+

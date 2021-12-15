@@ -20,6 +20,7 @@ namespace CarMatt.Data.DTOs.VehicleModule
         public string StyleTrim { get; set; }
         public string Engine { get; set; }
         public string Drivetrain { get; set; }
+        public string Status { get; set; }
         public string Transmission { get; set; }
         public string ExteriorColor { get; set; }
         public string InteriorColor { get; set; }

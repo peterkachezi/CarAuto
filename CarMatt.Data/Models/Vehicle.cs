@@ -46,6 +46,7 @@ namespace CarMatt.Data.Models
         public string CityFuelEconomy { get; set; }
 
         public string HighWayFuelEconomy { get; set; }
+        public string Status { get; set; }
 
         public DateTime CreateDate { get; set; }
 

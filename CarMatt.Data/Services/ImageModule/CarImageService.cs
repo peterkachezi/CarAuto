@@ -167,6 +167,22 @@ namespace CarMatt.Data.Services.ImageModule
 
         }
 
+        public async Task<bool> Delete(Guid Id)
+        {
+            bool result = false;
 
+            var s = await context.Images.Where(x => x.VehicleId==Id).FirstOrDefaultAsync();
+
+            if (s != null)
+            {
+                context.Images.Remove(s);
+
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+
+            return result;
+        }
     }
 }

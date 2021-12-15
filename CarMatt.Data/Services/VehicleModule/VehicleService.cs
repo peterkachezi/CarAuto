@@ -61,6 +61,8 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     CreatedBy = vehicleDTO.CreatedBy,
 
+                    Status = vehicleDTO.Status,
+
                 };
 
                 context.Vehicles.Add(s);
@@ -203,6 +205,8 @@ namespace CarMatt.Data.Services.VehicleModule
 
                                  Price = vehicle.Price,
 
+                                 Status = vehicle.Status,
+
                                  Quantity = vehicle.Quantity,
 
                                  MakeId = vehicle.MakeId,
@@ -320,15 +324,6 @@ namespace CarMatt.Data.Services.VehicleModule
 
                 var myimages = new List<ImageDTO>();
 
-
-                //foreach (var item in vehicleDTO.ImageName)
-                //{
-                //    var im = item;
-                //}
-
-
-
-
                 foreach (var item in vehicleDTO.ImageName)
                 {
                     var image = new Image();
@@ -362,7 +357,6 @@ namespace CarMatt.Data.Services.VehicleModule
         {
             try
             {
-
                 using (var transaction = context.Database.BeginTransaction())
                 {
                     var s = await context.Vehicles.FindAsync(vehicleDTO.Id);
@@ -408,9 +402,9 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     s.YearOfProduction = vehicleDTO.YearOfProduction;
 
+                    s.Status = vehicleDTO.Status;
+
                     transaction.Commit();
-
-
                 }
 
                 await context.SaveChangesAsync();

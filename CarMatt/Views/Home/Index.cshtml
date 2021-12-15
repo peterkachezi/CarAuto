@@ -1,174 +1,285 @@
-﻿
+﻿@model IEnumerable<CarMatt.Data.DTOs.ImageModule.ImageDTO>
+
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="~/homepage/all.min.css" rel="stylesheet" />
-
-    <link href="~/homepage/swiper-bundle.min.css" rel="stylesheet" />
-
-    <!-- font awesome cdn link  -->
-    <link href="~/homepage/all.min.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- custom css file link  -->
+    <title>I & P Auto Motors</title>
+    <!--------css--------->
     <link href="~/css/style.css" rel="stylesheet" />
+    <!----------------->
+    <!--------Boxicon css--------->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <!----------------->
+ 
+    <link href="~/homepage/bootstrap.min.css" rel="stylesheet" />
 
-    <link href="~/dashboard/bootstrap.min.css" rel="stylesheet" />
 
-    <link rel="icon" href="images/favicon.ico" type="image/ico" />
-
-    <title>Express | Store </title>
 </head>
 <body>
 
-    @await Html.PartialAsync("_Header");
 
 
-    <div class="login-form-container">
+    <header>
 
-        <span id="close-login-form" class="fas fa-times"></span>
+        <div class="nav container">
+            <i class='bx bx-menu' id="menu-icon"></i>
 
-        <form action="">
-            <h3>user login</h3>
-            <input type="email" placeholder="email" class="box">
-            <input type="password" placeholder="password" class="box">
-            <p> forget your password <a href="#">click here</a> </p>
-            <input type="submit" value="login" class="btn">
-            <p>or login with</p>
-            <div class="buttons">
-                <a href="#" class="btn"> google </a>
-                <a href="#" class="btn"> facebook </a>
-            </div>
-            <p> don't have an account <a href="#">create one</a> </p>
-        </form>
+            <a href="" class="logo">I & P Auto <span>Motors</span></a>
 
-    </div>
+            <ul class="navbar">
+                <li><a href="#" class="active">home</a></li>
+                <li><a href="#">cars</a></li>
+                <li><a href="#">about</a></li>
+                <li><a href="#">parts</a></li>
+                <li><a href="#">blog</a></li>
+            </ul>
 
+            <i class='bx bx-search' id="search-icon"></i>
 
-
-
-
-        <div id="carouselExampleSlidesOnly div" class="carousel slide" data-ride="carousel">
-
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="d-block w-100 img-fluid" src="~/slideimages/Image1.jpeg" alt="First slide" style="height: 85em; ">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100 img-fluid" src="~/slideimages/Image3.jpeg" alt="Second slide" style="height: 85em; ">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100 img-fluid" src="~/slideimages/Image4.jpeg" alt="Second slide" style="height: 85em; ">
-
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100 img-fluid" src="~/slideimages/Image5.jpeg" alt="Second slide" style="height: 85em; ">
-
-                </div>
+            <div class="search-box container">
+                <input type="search" name="" id="" placeholder="Search here ..." />
             </div>
         </div>
 
+    </header>
 
-
-
- 
-    <section class="icons-container">
-
-        <div class="icons">
-            <i class="fas fa-home"></i>
-            <div class="content">
-                <h3>150+</h3>
-                <p>branches</p>
-
-            </div>
-        </div>
-
-        <div class="icons">
-            <i class="fas fa-car"></i>
-            <div class="content">
-                <h3>4770+</h3>
-                <p>cars sold</p>
-            </div>
-        </div>
-
-        <div class="icons">
-            <i class="fas fa-users"></i>
-            <div class="content">
-                <h3>320+</h3>
-                <p>happy clients</p>
-            </div>
-        </div>
-
-        <div class="icons">
-            <i class="fas fa-car"></i>
-            <div class="content">
-                <h3>1500+</h3>
-                <p>news cars</p>
-            </div>
+    <section class="home" id="home">
+        <div class="home-text">
+            <h1>We have Everything <br> Your <span>Car</span> Need</h1>
+            <p>Look,we got you coverd <br>at I & P Auto Motors </p>
+            <a href="#" class="btn">Discover Now</a>
         </div>
 
     </section>
 
 
+    <section class="cars" id="cars">
+        <div class="heading">
+            <span>All Cars</span>
+            <h2>We have all types of cars</h2>
+            <p>Check it out</p>
+        </div>
+
+        <div class="cars-container container">
+            <div class="container">
+                <div class="row">
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        @foreach (var item in Model)
+
+                        {
+                            <div class="col-sm-3 mb-2">
+                                <div class="card">
+                                    <div class="box">
+                                        <img class="card-img-top img-fluid" src="~/uploads/@item.ImageName" alt="Card image cap">
+                                    </div>
+                                    <div class="card-block">
+                                        <h3 class="card-title">@item.FullName</h3>
+                                        <p class="card-title">Ksh @item.Price.ToString("N")</p>
+                                        <p class="card-title">@item.Engine</p>
+                                        <p class="card-title">@item.Kilometres</p>
+                                        <p class="card-title">@item.FuelType</p>
+                                        <a href="#" class="btn">Vew Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="about container" id="about">
+        <div class="about-img">
+            <img src="~/images/vehicle-1.png" alt="" />
+        </div>
+        <div class="about-text">
+            <span>About Us</span>
+            <h2>Cheap prices with <br> Quality Cars  </h2>
+            <p>Walk with us</p>
+            <a href="#" class="btn">Learn More</a>
+        </div>
+    </section>
+
+    <section class="parts" id="parts">
+        <div class="heading">
+            <span>What we offer</span>
+            <h2>We have excellent cars</h2>
+            <p>Visit our show room today</p>
+        </div>
+
+        <div class="parts-container container">
+
+            <div class="box">
+                <img src="~/images/vehicle-1.png" alt="" />
+                <h3>Auto Spare Parts</h3>
+                <span>Ksh 120.00</span>
+                <i class='bx bx-star'>(6 Reviews)</i>
+                <a href="#" class="btn">Buy Now</a>
+                <a href="#" class="details">View Details</a>
+            </div>
+
+            <div class="box">
+                <img src="~/images/vehicle-2.png" alt="" />
+                <h3>Auto Spare Parts</h3>
+                <span>Ksh 120.00</span>
+                <i class='bx bx-star'>(6 Reviews)</i>
+                <a href="#" class="btn">Buy Now</a>
+                <a href="#" class="details">View Details</a>
+            </div>
+
+            <div class="box">
+                <img src="~/images/vehicle-3.png" alt="" />
+                <h3>Auto Spare Parts</h3>
+                <span>Ksh 120.00</span>
+                <i class='bx bx-star'>(6 Reviews)</i>
+                <a href="#" class="btn">Buy Now</a>
+                <a href="#" class="details">View Details</a>
+            </div>
+
+            <div class="box">
+                <img src="~/images/vehicle-4.png" alt="" />
+                <h3>Auto Spare Parts</h3>
+                <span>Ksh 120.00</span>
+                <i class='bx bx-star'>(6 Reviews)</i>
+                <a href="#" class="btn">Buy Now</a>
+                <a href="#" class="details">View Details</a>
+            </div>
+
+            <div class="box">
+                <img src="~/images/vehicle-5.png" alt="" />
+                <h3>Auto Spare Parts</h3>
+                <span>Ksh 120.00</span>
+                <i class='bx bx-star'>(6 Reviews)</i>
+                <a href="#" class="btn">Buy Now</a>
+                <a href="#" class="details">View Details</a>
+            </div>
+
+            <div class="box">
+                <img src="~/images/vehicle-6.png" alt="" />
+                <h3>Auto Spare Parts</h3>
+                <span>Ksh 120.00</span>
+                <i class='bx bx-star'>(6 Reviews)</i>
+                <a href="#" class="btn">Buy Now</a>
+                <a href="#" class="details">View Details</a>
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <section class="blog" id="blog">
+        <div class="heading">
+            <span>Blog & News</span>
+            <h2>Our Blog Content</h2>
+            <p>Read our  blog today</p>
+        </div>
+
+        <div class="blog-container container">
+            <div class="box">
+                <img src="~/images/vehicle-6.png" alt="" />
+                <span>Feb 14 2021</span>
+                <h3>How to get a car at low price</h3>
+                <p>Mr steveee</p>
+                <a href="#" class="blog-btn">Read More<i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+            <div class="box">
+                <img src="~/images/vehicle-6.png" alt="" />
+                <span>Feb 14 2021</span>
+                <h3>How to get a car at low price</h3>
+                <p>Mr steveee</p>
+                <a href="#" class="blog-btn">Read More<i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+            <div class="box">
+                <img src="~/images/vehicle-6.png" alt="" />
+                <span>Feb 14 2021</span>
+                <h3>How to get a car at low price</h3>
+                <p>Mr steveee</p>
+                <a href="#" class="blog-btn">Read More<i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+            <div class="box">
+                <img src="~/images/vehicle-6.png" alt="" />
+                <span>Feb 14 2021</span>
+                <h3>How to get a car at low price</h3>
+                <p>Mr steveee</p>
+                <a href="#" class="blog-btn">Read More<i class="bx bx-right-arrow-alt"></i></a>
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+    <section class="footer">
+        <div class="footer-container container">
+            <div class="footer-box">
+                <a href="#" class="logo">I & P Auto <span>Motors</span></a>
+                <div class="social">
+                    <a href="#"><i class="bx bxl-facebook"></i></a>
+                    <a href="#"><i class="bx bxl-twitter"></i></a>
+                    <a href="#"><i class="bx bxl-instagram"></i></a>
+                    <a href="#"><i class="bx bxl-youtube"></i></a>
+
+                </div>
+            </div>
+
+            <div class="footer-box">
+                <h3>Page</h3>
+                <a href="#">Home</a>
+                <a href="#">Cars</a>
+                <a href="#">Parts</a>
+                <a href="#">Sales</a>
+            </div>
+            <div class="footer-box">
+                <h3>Legal</h3>
+                <a href="#">Privacy</a>
+                <a href="#">Refund Policy</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+
+            <div class="footer-box">
+                <h3>Contact</h3>
+                <p>Kenya</p>
+                <p>Kenya</p>
+                <p>Kenya</p>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="copyright">
+        <p>&#169; Skisoft Systems all Right Reserved</p>
+    </div>
 
 
 
 
+    <script src="~/js/main.js"></script>
 
 
-
-
-
-
-
-
-
-
-
-    @await Html.PartialAsync("_Featured");
-
-
-
-
-
-    @*@await Html.PartialAsync("_Featured");*@
-
-
-
-    @await Html.PartialAsync("_Newsletter");
-
-    @*@await Html.PartialAsync("_Reviews");*@
-
-    @await Html.PartialAsync("_Contact");
-
-    @await Html.PartialAsync("_Footer");
-
-
-
-    <script src="~/homepage/swiper-bundle.min.js"></script>
-    <script src="~/Scripts/jquery-3.5.1.js"></script>
-    <script src="~/js/script.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
 
 <style>
-    .div {
-      
-        overflow: hidden;
-        position: relative;
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
     }
 
-        .div img {
-            position: absolute;
+        .row > div[class*='col-'] {
+            display: flex;
         }
 </style>
+

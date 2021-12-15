@@ -154,7 +154,10 @@ namespace CarMatt.Controllers
             }
         }
 
-
+        public ActionResult Test()
+        {
+            return View();
+        }
 
         public async Task<ActionResult> VehicleDetails(Guid Id)
         {

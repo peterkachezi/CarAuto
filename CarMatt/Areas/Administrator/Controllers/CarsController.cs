@@ -24,7 +24,7 @@ namespace CarMatt.Areas.Administrator.Controllers
 
         private readonly IVehicleService vehicleService;
 
-        private readonly IBodyTypeService  bodyTypeService;
+        private readonly IBodyTypeService bodyTypeService;
 
         private readonly UserManager<AppUser> userManager;
 
@@ -33,7 +33,7 @@ namespace CarMatt.Areas.Administrator.Controllers
         private readonly IModelService modelService;
 
         private readonly ICarImageService carImageService;
-        public CarsController(IBodyTypeService bodyTypeService,ICarImageService carImageService, IVehicleService vehicleService, UserManager<AppUser> userManager, IWebHostEnvironment env, ICarMakeService carMakeService, IModelService modelService)
+        public CarsController(IBodyTypeService bodyTypeService, ICarImageService carImageService, IVehicleService vehicleService, UserManager<AppUser> userManager, IWebHostEnvironment env, ICarMakeService carMakeService, IModelService modelService)
         {
             this.vehicleService = vehicleService;
             this.userManager = userManager;
@@ -50,7 +50,7 @@ namespace CarMatt.Areas.Administrator.Controllers
         }
         public async Task<IActionResult> GetVehicles()
         {
-            var vehicles = (await vehicleService.GetAll()).OrderBy(x=>x.CreateDate).ToList();
+            var vehicles = (await vehicleService.GetAll()).OrderBy(x => x.CreateDate).ToList();
 
             return Json(new { data = vehicles });
         }
@@ -81,7 +81,7 @@ namespace CarMatt.Areas.Administrator.Controllers
 
             return Json(new { data = expenses });
         }
-       
+
         public async Task<IActionResult> GetById(Guid Id)
         {
             try
@@ -152,10 +152,12 @@ namespace CarMatt.Areas.Administrator.Controllers
         {
             try
             {
-                var results = await vehicleService.Delete(Id);
+                var delete_car = await vehicleService.Delete(Id);
 
-                if (results == true)
+                if (delete_car == true)
                 {
+                    //var delete_image = await carImageService.Delete(Id);
+
                     return Json(new { success = true, responseText = "Record  has been  successfully Deleted!" });
                 }
                 else
@@ -173,7 +175,7 @@ namespace CarMatt.Areas.Administrator.Controllers
         public async Task<ActionResult> UpdateInformation(Guid Id)
         {
             var make = await carMakeService.GetAll();
-                 
+
             ViewBag.Makes = make;
 
             var vehicle = await vehicleService.GetById(Id);
@@ -219,15 +221,15 @@ namespace CarMatt.Areas.Administrator.Controllers
                 return null;
             }
 
-        }    
+        }
         [HttpPost]
-        public async Task<IActionResult> Create(VehicleDTO  vehicleDTO, IFormFile[] ImageName)
+        public async Task<IActionResult> Create(VehicleDTO vehicleDTO, IFormFile[] ImageName)
         {
             try
             {
                 var isCarExist = await vehicleService.GetById(vehicleDTO.ModelId);
 
-                if(isCarExist != null)
+                if (isCarExist != null)
                 {
                     return Json(new { success = false, responseText = "This car already exists" });
 
@@ -239,7 +241,7 @@ namespace CarMatt.Areas.Administrator.Controllers
 
                 if (ImageName == null || ImageName.Length == 0)
                 {
-                   
+
                     return Json(new { success = false, responseText = "Please upload photos / images" });
 
                 }
@@ -294,6 +296,6 @@ namespace CarMatt.Areas.Administrator.Controllers
                 return null;
             }
         }
-    
+
     }
 }

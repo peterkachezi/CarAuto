@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-              
+
             </div>
 
             <div class="col-md-12">
@@ -70,7 +70,6 @@
                 </div>
 
 
-
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Kilometres</label>
                     <div class="">
@@ -81,7 +80,7 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">BodyType</label>
                     <div class="">
-                        <select class="form-control" id="txtBodyId" name="BodyTypeId" >
+                        <select class="form-control" id="txtBodyId" name="BodyTypeId">
                             @if (ViewBag.BodyTypes != null)
                             {
                                 foreach (var item in ViewBag.BodyTypes)
@@ -96,8 +95,6 @@
                 </div>
 
             </div>
-
-     
 
 
             <div class="col-md-12">
@@ -116,7 +113,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Drivetrain</label>
                     <div class="">
@@ -127,11 +123,15 @@
 
             <div class="col-md-12">
 
-
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Transmission</label>
                     <div class=" ">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="Transmission">
+                        <select  class="form-control" type="text" name="Transmission">
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+
+                        </select>
+                    
                     </div>
                 </div>
 
@@ -162,7 +162,12 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">FuelType</label>
                     <div class="">
-                        <input id="txtReOrderLevel" class="form-control" type="text" name="FuelType">
+                        <select class="form-control" type="text" name="FuelType">
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+
+                        </select>
+
                     </div>
                 </div>
 
@@ -194,13 +199,13 @@
                 <div class="col-md-4 col-sm-4">
                     <label for="middle-name" class="">Upload Files</label>
                     <div class="">
-                        <input type="file" id="files" name="ImageName"  multiple="multiple" class="form-control" />
+                        <input type="file" id="files" name="ImageName" multiple="multiple" class="form-control" />
                     </div>
                 </div>
 
 
-            </div>   
-            
+            </div>
+
             <div class="col-md-12">
 
                 <div class="col-md-4 col-sm-4">
@@ -209,10 +214,21 @@
                         <input id="txtYearOfProduction" class="form-control" type="text" name="YearOfProduction">
                     </div>
                 </div>
-                     
 
+                <div class="col-md-4 col-sm-4">
+                    <label for="middle-name" class="">Status</label>
+                    <div class="">
+                        <select class="form-control" type="text" name="Status">
+                            <option value="Petrol">Used</option>
+                            <option value="Diesel">New</option>
+
+                        </select>
+
+                    </div>
+                </div>
             </div>
 
+    
 
             <div class="col-md-12">
                 <div class="ln_solid"></div>
@@ -223,7 +239,7 @@
                         <button type="button" id="btnSubmit" class="btn btn-success">Submit</button>
                     </div>
                 </div>
-                </div>
+            </div>
 
 
 

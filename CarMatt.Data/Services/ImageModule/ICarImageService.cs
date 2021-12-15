@@ -10,5 +10,6 @@ namespace CarMatt.Data.Services.ImageModule
         Task<List<ImageDTO>> GetAll();
         Task<List<ImageDTO>> GetByCarId(Guid Id);
         Task<ImageDTO> GetByCardIdSingle(Guid Id);
+        Task<bool> Delete(Guid Id);
     }
 }
