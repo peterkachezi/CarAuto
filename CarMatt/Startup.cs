@@ -8,6 +8,8 @@ using CarMatt.Data.Services.CarModelModule;
 using CarMatt.Data.Services.CountyModule;
 using CarMatt.Data.Services.FeedBackModule;
 using CarMatt.Data.Services.ImageModule;
+using CarMatt.Data.Services.InquiryModule;
+using CarMatt.Data.Services.PartModule;
 using CarMatt.Data.Services.SMSModule;
 using CarMatt.Data.Services.SubscriptionModule;
 using CarMatt.Data.Services.VehicleModule;
@@ -50,7 +52,7 @@ namespace CarMatt
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
             ServiceLifetime.Transient);
-
+    
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, ApplicationUserClaimsPrincipalFactory>();
             services.AddScoped<IAgentService, AgentService>();
@@ -64,6 +66,8 @@ namespace CarMatt
             services.AddScoped<IFeedBackService, FeedBackService>();
             services.AddScoped<IMessagingService, MessagingService>();
             services.AddScoped<ISubscriptionService, SubscriptionService>();
+            services.AddScoped<IInquiryService, InquiryService>();
+            services.AddScoped<IPartService, PartService>();
 
             services.AddControllersWithViews();
 

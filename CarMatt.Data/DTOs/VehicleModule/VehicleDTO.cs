@@ -24,7 +24,7 @@ namespace CarMatt.Data.DTOs.VehicleModule
         public string Transmission { get; set; }
         public string ExteriorColor { get; set; }
         public string InteriorColor { get; set; }
-        public string Passangers { get; set; }
+        public string Doors { get; set; }
         public string FuelType { get; set; }
         public string CityFuelEconomy { get; set; }
         public string HighWayFuelEconomy { get; set; }

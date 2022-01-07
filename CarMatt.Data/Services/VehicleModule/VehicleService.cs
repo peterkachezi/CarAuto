@@ -49,7 +49,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     InteriorColor = vehicleDTO.InteriorColor,
 
-                    Passangers = vehicleDTO.Passangers,
+                    Doors = vehicleDTO.Doors,
 
                     FuelType = vehicleDTO.FuelType,
 
@@ -155,7 +155,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                                  InteriorColor = vehicle.InteriorColor,
 
-                                 Passangers = vehicle.Passangers,
+                                 Doors = vehicle.Doors,
 
                                  FuelType = vehicle.FuelType,
 
@@ -237,7 +237,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                                  InteriorColor = vehicle.InteriorColor,
 
-                                 Passangers = vehicle.Passangers,
+                                 Doors = vehicle.Doors,
 
                                  FuelType = vehicle.FuelType,
 
@@ -300,7 +300,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     InteriorColor = vehicleDTO.InteriorColor,
 
-                    Passangers = vehicleDTO.Passangers,
+                    Doors = vehicleDTO.Doors,
 
                     FuelType = vehicleDTO.FuelType,
 
@@ -392,7 +392,7 @@ namespace CarMatt.Data.Services.VehicleModule
 
                     s.InteriorColor = vehicleDTO.InteriorColor;
 
-                    s.Passangers = vehicleDTO.Passangers;
+                    s.Doors = vehicleDTO.Doors;
 
                     s.FuelType = vehicleDTO.FuelType;
 

@@ -122,7 +122,7 @@ namespace CarMatt.Areas.Administrator.Controllers
 
                         InteriorColor = data.InteriorColor,
 
-                        Passangers = data.Passangers,
+                        Doors = data.Doors,
 
                         FuelType = data.FuelType,
 

@@ -3,6 +3,7 @@ using CarMatt.Data.DTOs.ApplicationUserServiceModule;
 using CarMatt.Data.Models;
 using CarMatt.Data.Services.AgentModule;
 using CarMatt.Data.Services.CountyModule;
+using CarMatt.Data.Services.SMSModule;
 using CarMatt.EmailServiceModule;
 using CarMatt.Helpers;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace CarMatt.Areas.Administrator.Controllers
 
         private readonly IEmailService emailService;
 
+        private readonly IMessagingService  messagingService;
+
         private readonly IAgentService  agentService;
 
         private readonly ICountyService  countyService;
@@ -39,7 +42,7 @@ namespace CarMatt.Areas.Administrator.Controllers
         private IWebHostEnvironment env;
 
 
-        public UserManagerController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
+        public UserManagerController(IMessagingService messagingService,UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
 
         RoleManager<IdentityRole> roleManager, IEmailService emailService,  IConfiguration config, IWebHostEnvironment env, IAgentService agentService, ICountyService countyService)
         {
@@ -58,6 +61,8 @@ namespace CarMatt.Areas.Administrator.Controllers
             this.config = config;
 
             this.env = env;
+
+            this.messagingService = messagingService;
 
         }
         public async Task<IActionResult> Index()
@@ -185,6 +190,8 @@ namespace CarMatt.Areas.Administrator.Controllers
                 var createEmployer = await agentService.Create(data);
 
                 var sendEmail = emailService.SendAccountCreationEmailNotification(registerDTO);
+
+                var sms = messagingService.usersAccount(registerDTO);
 
                 var createRole = await userManager.AddToRoleAsync(user, registerDTO.RoleName);
 

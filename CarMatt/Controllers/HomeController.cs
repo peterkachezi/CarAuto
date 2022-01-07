@@ -17,6 +17,9 @@ using CarMatt.Data.DTOs.VehicleModule;
 using CarMatt.EmailServiceModule;
 using CarMatt.Data.DTOs.SubscriptionModule;
 using CarMatt.Data.Services.SubscriptionModule;
+using CarMatt.Data.DTOs.InquiryModule;
+using CarMatt.Data.Services.InquiryModule;
+using CarMatt.Data.Services.PartModule;
 
 namespace CarMatt.Controllers
 {
@@ -40,7 +43,12 @@ namespace CarMatt.Controllers
 
         private readonly ISubscriptionService subscriptionService;
 
-        public HomeController(ISubscriptionService subscriptionService, IEmailService emailService, IBodyTypeService bodyTypeService, IModelService modelService, ICarMakeService carMakeService, IMessagingService messagingService, IVehicleService vehicleService, ICarImageService carImageService, IFeedBackService feedBackService)
+        private readonly IInquiryService inquiryService;
+
+        private readonly IPartService partService;
+
+
+        public HomeController(IPartService partService, IInquiryService inquiryService, ISubscriptionService subscriptionService, IEmailService emailService, IBodyTypeService bodyTypeService, IModelService modelService, ICarMakeService carMakeService, IMessagingService messagingService, IVehicleService vehicleService, ICarImageService carImageService, IFeedBackService feedBackService)
         {
             this.vehicleService = vehicleService;
 
@@ -60,11 +68,14 @@ namespace CarMatt.Controllers
 
             this.subscriptionService = subscriptionService;
 
+            this.inquiryService = inquiryService;
+
+            this.partService = partService;
+
         }
 
         public async Task<IActionResult> Index(Guid makeId, Guid bodyTypeId, string yearOfProduction, decimal pricefrom, decimal priceto)
         {
-
             try
             {
 
@@ -128,7 +139,30 @@ namespace CarMatt.Controllers
                 return null;
             }
         }
+        public async Task<ActionResult> Inquiry(InquiryDTO inquiryDTO)
+        {
+            try
+            {
+                var results = await inquiryService.Create(inquiryDTO);
 
+                if (results != null)
+                {
+                    var sendemail = messagingService.InquirySMSAlert(inquiryDTO);
+
+                    return Json(new { success = true, responseText = "Your message has been  successfully sent" });
+                }
+                else
+                {
+                    return Json(new { success = false, responseText = "Record has been  not been saved" });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
         public async Task<ActionResult> Subscription(SubscriptionDTO subscriptionDTO)
         {
             try
@@ -154,10 +188,60 @@ namespace CarMatt.Controllers
             }
         }
 
-        public ActionResult Test()
+        public ActionResult ContactUs()
+
         {
             return View();
         }
+
+
+        public async Task<IActionResult> SearchCars(Guid makeId, Guid bodyTypeId, string yearOfProduction, decimal pricefrom, decimal priceto)
+        {
+            try
+            {
+                if (makeId == null || makeId == Guid.Empty || bodyTypeId == null || bodyTypeId == Guid.Empty || yearOfProduction == null || pricefrom.Equals(null) || priceto.Equals(null))
+
+                {
+                    var all = (await carImageService.GetAll()).ToList();
+
+                    var result = all.GroupBy(test => test.VehicleId).Select(grp => grp.First()).ToList();
+
+                    ViewBag.Make = await carMakeService.GetAll();
+
+                    return View(result);
+                }
+                else
+                {
+                    var all = (await carImageService.GetAll()).Where(x => x.MakeId == makeId && x.BodyTypeId == bodyTypeId && x.YearOfProduction == yearOfProduction);
+
+                    var filterPrice = all.Where(p => p.Price >= pricefrom && p.Price <= priceto).ToList();
+
+                    var result = filterPrice.GroupBy(test => test.VehicleId).Select(grp => grp.First()).ToList();
+
+                    ViewBag.Make = await carMakeService.GetAll();
+
+                    return View(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+
+        }
+
+        public async Task<ActionResult> Parts()
+        {
+            var all = (await partService.GetPartsAndImages()).ToList();
+
+            var parts = all.GroupBy(test => test.PartId).Select(grp => grp.First()).ToList();
+
+            return View(parts);
+        }
+
+
 
         public async Task<ActionResult> VehicleDetails(Guid Id)
         {
@@ -170,6 +254,10 @@ namespace CarMatt.Controllers
             combinedDTO.singleImageDTO = await carImageService.GetByCardIdSingle(Id);
 
             combinedDTO.imageDTO = await carImageService.GetByCarId(Id);
+
+            var all = (await carImageService.GetAll()).Where(x => x.ModelName == combinedDTO.vehicleDTO.ModelName);
+
+            combinedDTO.similarvehicleDTO = all.GroupBy(test => test.VehicleId).Select(grp => grp.First()).ToList();
 
             return View(combinedDTO);
         }

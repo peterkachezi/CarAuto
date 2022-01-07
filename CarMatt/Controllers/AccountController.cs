@@ -52,7 +52,7 @@ namespace CarMatt.Controllers
         {
             await signInManager.SignOutAsync();
 
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Login()
         {
@@ -189,6 +189,10 @@ namespace CarMatt.Controllers
             }
             return View(resetPasswordDTO);
         }
+
+
+
+
         public IActionResult ForgotPassword()
         {
             return View();

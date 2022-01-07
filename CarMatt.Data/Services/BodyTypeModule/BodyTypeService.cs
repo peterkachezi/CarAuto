@@ -24,7 +24,7 @@ namespace CarMatt.Data.Services.BodyTypeModule
                 {
                     Id = Guid.NewGuid(),
 
-                    Name = bodyTypeDTO.Name.Substring(0, 1).ToUpper() + bodyTypeDTO.Name.Substring(1).ToLower().Trim(),
+                    Name = bodyTypeDTO.Name,
 
                     CreateDate = DateTime.Now,
 
@@ -139,7 +139,7 @@ namespace CarMatt.Data.Services.BodyTypeModule
                 {
                     var s = await context.BodyTypes.FindAsync(bodyTypeDTO.Id);
 
-                    s.Name = bodyTypeDTO.Name.Substring(0, 1).ToUpper() + bodyTypeDTO.Name.Substring(1).ToLower().Trim();
+                    s.Name = bodyTypeDTO.Name;
 
                     transaction.Commit();
                 }

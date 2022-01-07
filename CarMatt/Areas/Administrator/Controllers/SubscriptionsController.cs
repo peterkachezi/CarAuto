@@ -1,8 +1,5 @@
 ﻿using CarMatt.Data.Services.SubscriptionModule;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarMatt.Areas.Administrator.Controllers
@@ -18,7 +15,6 @@ namespace CarMatt.Areas.Administrator.Controllers
         }
         public IActionResult Index()
         {
-
             return View();
         }
 
@@ -28,9 +24,6 @@ namespace CarMatt.Areas.Administrator.Controllers
 
             return Json(new { data = subscription });
         }
-
-
-
 
     }
 }

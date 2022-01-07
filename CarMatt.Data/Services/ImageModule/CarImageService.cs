@@ -138,7 +138,7 @@ namespace CarMatt.Data.Services.ImageModule
 
                                  InteriorColor = vehicle.InteriorColor,
 
-                                 Passangers = vehicle.Passangers,
+                                 Doors = vehicle.Doors,
 
                                  FuelType = vehicle.FuelType,
 

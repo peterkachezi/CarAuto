@@ -85,6 +85,8 @@ namespace CarMatt.Data.Services.CarMakeModule
                              {
                                  Id = c.Id,
 
+                                 Code = c.Code,
+
                                  Name = c.Name,
 
                                  CreateDate = c.CreateDate,

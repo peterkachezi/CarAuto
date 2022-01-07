@@ -9,6 +9,7 @@ namespace CarMatt.Data.DTOs.VehicleModule
     {
         public List<ImageDTO>  imageDTO { get; set; }
         public VehicleDTO vehicleDTO { get; set; }
+        public List<ImageDTO> similarvehicleDTO { get; set; }
         public ImageDTO singleImageDTO { get; set; }
     }
 }

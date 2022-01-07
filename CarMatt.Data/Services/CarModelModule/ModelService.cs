@@ -25,7 +25,7 @@ namespace CarMatt.Data.Services.CarModelModule
                 {
                     Id = Guid.NewGuid(),
 
-                    Name = modelDTO.Name.Substring(0, 1).ToUpper() + modelDTO.Name.Substring(1).ToLower().Trim(),
+                    Name = modelDTO.Name,
 
                     CarMakeId = modelDTO.CarMakeId,
 
@@ -55,7 +55,7 @@ namespace CarMatt.Data.Services.CarModelModule
             {
                 bool result = false;
 
-                var s = await context.CarModels.FindAsync();
+                var s = await context.CarModels.FindAsync(Id);
 
                 if (s != null)
                 {
@@ -152,7 +152,7 @@ namespace CarMatt.Data.Services.CarModelModule
                 {
                     var s = await context.CarModels.FindAsync(modelDTO.Id);
 
-                    s.Name = modelDTO.Name.Substring(0, 1).ToUpper() + modelDTO.Name.Substring(1).ToLower().Trim();
+                    s.Name = modelDTO.Name;
 
                     s.CarMakeId = modelDTO.CarMakeId;
 

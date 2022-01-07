@@ -1,0 +1,112 @@
+﻿
+
+
+
+@await Html.PartialAsync("_headerRibon")
+
+@await Html.PartialAsync("_header")
+
+
+<section class="contact" id="contact">
+    <div class="contact-container container">
+        @*<h1 class="heading"><span>contact</span> us</h1>*@
+
+        <div class="row">
+
+            <iframe class="map" src="https://maps.google.com/maps?q=village%20market&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+
+            <form id="frmInquiry">
+                <div class="alert alert-success" id="divAlart" style="display:none;">
+                    <strong id="txtAlart"></strong>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Your Name" name="Name" id="txtName">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Your Email" name="Email" id="txtEmail">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Subject" name="PhoneNumber" id="txtPhoneNumber">
+                </div>
+                <div class="form-group">
+                    <textarea rows="4" class="form-control" placeholder="Your Message" name="Message" id="txtMessage"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="button" id="btnSubmit" value="Send Message" class="btn btn-block">
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+@*<section class="parts" id="parts">
+
+        <div class="contact-container container">
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <form>
+                            <div class="mapouter">
+                                <div class="gmap_canvas">
+                                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30153.788252261566!2d72.82321484621745!3d19.141690214227783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aceef0c69%3A0x2aa80cf2287dfa3b!2sJogeshwari%20West%2C%20Mumbai%2C%20Maharashtra%20400047!5e0!3m2!1sen!2sin!4v1632137920043!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="sidebar_widget">
+                            <div class="widget_heading">
+                                <div class="about-text">
+                                    <h2>Get In Touch</h2>
+                                </div>
+                            </div>
+                            <form id="frmInquiry">
+                                <div class="alert alert-success" id="divAlart" style="display:none;">
+                                    <strong id="txtAlart"></strong>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Your Name" name="Name" id="txtName">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Your Email" name="Email" id="txtEmail">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Subject" name="PhoneNumber" id="txtPhoneNumber">
+                                </div>
+                                <div class="form-group">
+                                    <textarea rows="4" class="form-control" placeholder="Your Message" name="Message" id="txtMessage"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="button" id="btnSubmit" value="Send Message" class="btn btn-block">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>*@
+
+@await Html.PartialAsync("_footer")
+

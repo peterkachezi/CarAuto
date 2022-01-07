@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CarMatt.Data.DTOs.PartModule.PartImageDTO>
+@{
+    ViewData["Title"] = "SearchCars";
+
+}
+
+@await Html.PartialAsync("_headerRibon")
+
+@await Html.PartialAsync("_header")
+
+
+
+
+<section class="parts" id="parts">
+    <div class="heading">
+        @*<span>What we offer</span>
+        <h2>We have excellent cars</h2>
+        <p>Visit our show room today</p>*@
+    </div>
+
+    <div class="parts-container container">
+
+
+
+
+        @if (Model != null && Model.Count() > 0)
+        {
+            @foreach (var item in Model)
+
+            {
+                <div class="col-sm-3">
+                    <div class="box">
+                        <img class="" src="~/partsuploads/@item.ImageName" alt="Card image cap" style="height:10rem;">
+                        <h3>Auto Spare Parts</h3>
+                        <span>Ksh 120.00</span>
+                        <i class='bx bx-star'>(6 Reviews)</i>
+                        <a href="#" class="btn">Buy Now</a>
+                        <a href="#" class="details">View Details</a>
+                    </div>
+                </div>
+
+            }
+        }
+
+    </div>
+
+
+</section>
+
+@await Html.PartialAsync("_footer")
+
+<style>
+    .card {
+        margin-bottom: 10px;
+    }
+</style>
+
+

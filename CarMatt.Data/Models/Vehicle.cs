@@ -39,7 +39,7 @@ namespace CarMatt.Data.Models
 
         public string InteriorColor { get; set; }
 
-        public string Passangers { get; set; }
+        public string Doors { get; set; }
 
         public string FuelType { get; set; }
 

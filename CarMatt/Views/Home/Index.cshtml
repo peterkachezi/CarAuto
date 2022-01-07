@@ -1,221 +1,456 @@
 ﻿@model IEnumerable<CarMatt.Data.DTOs.ImageModule.ImageDTO>
 
-
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!DOCTYPE html>
-<html>
-
-<head>
-
-    @await Html.PartialAsync("_headerRibon")
+<html lang="en">
 
 
-
-</head>
-
-
-    <body>
-     
-
-            @await Html.PartialAsync("_header")
+<body>
+    @await Html.PartialAsync("_header.cshtml")
 
 
-            <section class="home" id="home">
-                <div class="home-text">
-                    <h1>We have Everything <br> Your <span>Car</span> Need</h1>
-                    <p>Look,we got you coverd <br>at I & P Auto Motors </p>
-                    <a href="#" class="btn">Discover Now</a>
+    <div class="login-form-container">
+
+        <span id="close-login-form" class="fas fa-times"></span>
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger" role="alert" id="error">
+                    @TempData["Error"].ToString()
                 </div>
+            }
+            <h3>user login</h3>
+            <input type="email" placeholder="email" class="box" name="Email">
+            <input type="password" placeholder="password" class="box" name="Password">
+            <p> forget your password <a href="#">click here</a> </p>
+            <input type="submit" value="login" class="btn">
+            <p>or login with</p>
+            <div class="buttons">
+                <a href="#" class="btn"> google </a>
+                <a href="#" class="btn"> facebook </a>
+            </div>
+            <p> don't have an account <a href="#">create one</a> </p>
+        }
 
-            </section>
+    </div>
+
+    <section class="home" id="home">
+
+        <h3 data-speed="-2" class="home-parallax">find your car</h3>
+
+        <img data-speed="5" class="home-parallax" src="~/images/home-img.png" alt="">
+
+        <a data-speed="7" href="#" class="btn home-parallax">explore cars</a>
+
+    </section>
+
+    <section class="icons-container">
+
+        <div class="icons">
+            <i class="fas fa-home"></i>
+            <div class="content">
+                <h3>150+</h3>
+                <p>branches</p>
+            </div>
+        </div>
+
+        <div class="icons">
+            <i class="fas fa-car"></i>
+            <div class="content">
+                <h3>4770+</h3>
+                <p>cars sold</p>
+            </div>
+        </div>
+
+        <div class="icons">
+            <i class="fas fa-users"></i>
+            <div class="content">
+                <h3>320+</h3>
+                <p>happy clients</p>
+            </div>
+        </div>
+
+        <div class="icons">
+            <i class="fas fa-car"></i>
+            <div class="content">
+                <h3>1500+</h3>
+                <p>news cars</p>
+            </div>
+        </div>
+
+    </section>
 
 
-            <section class="cars" id="cars">
-                <div class="heading">
-                    <span>All Cars</span>
-                    <h2>We have all types of cars</h2>
-                    <p>Check it out</p>
-                </div>
+    <section class="cars" id="cars">
 
-                <div class="cars-container container">
-                    <div class="container">
-                        <div class="row">
-                            @if (Model != null && Model.Count() > 0)
-                            {
-                                @foreach (var item in Model)
+        <h1 class="heading"> popular <span>vehicles</span> </h1>
 
-                                {
-                                    <div class="col-sm-3 mb-2">
-                                        <div class="card">
-                                            <div class="box">
-                                                <a href="~/Home/VehicleDetails/@item.Id">
-                                                    <img class="card-img-top img-fluid" src="~/uploads/@item.ImageName" alt="Card image cap">
+        <div class="">
 
-                                                </a>
-                                            </div>
-                                            <div class="card-block">
-                                                <h3 class="card-title">@item.FullName</h3>
-                                                <p class="card-title">Ksh @item.Price.ToString("N")</p>
-                                                <p class="card-title">@item.Engine</p>
-                                                <p class="card-title">@item.Kilometres</p>
-                                                <p class="card-title">@item.FuelType</p>
-                                                <a href="~/Home/VehicleDetails/@item.Id" class="btn">Vew Details</a>
-                                            </div>
+            <div class="row">
+
+                @if (Model != null && Model.Count() > 0)
+                {
+
+                    foreach (var item in Model)
+                    {
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <img src="~/uploads/@item.ImageName" />
+                                <h3>@item.FullName</h3>
+                                <div class="ml-3">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="details"><strong>Engine :</strong>@item.Price.ToString("N")</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="details"><strong>Engine :</strong>@item.Engine</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="details"><strong>Body Type :</strong>@item.BodyTypeName</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="details"><strong>Fuel :</strong>@item.FuelType</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="details"><strong>Model :</strong>@item.ModelName</div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="details"><strong>Doors :</strong>@item.Doors</div>
                                         </div>
                                     </div>
-                                }
-                            }
+                                </div>
+                                <div class="col-md-12">
+                                    <a href="~/home/VehicleDetails/@item.Id" class="checkout">check out</a>
+                                </div>
+                            </div>
 
                         </div>
-                    </div>
+
+                    }
+                }
+
+            </div>
+
+        </div>
+
+
+
+    </section>
+
+
+
+
+
+    @*<section class="vehicles" id="vehicles">
+
+            <h1 class="heading"> popular <span>vehicles</span> </h1>
+
+            <div class="swiper vehicles-slider">
+
+                <div class="swiper-wrapper">
+
+                    @if (Model != null && Model.Count() > 0)
+                    {
+
+                        foreach (var item in Model)
+                        {
+                            <div class="swiper-slide box">
+                                <img src="~/images/vehicle-1.png" alt="" style="width:25rem; height:25rem;">
+                                <div class="content">
+                                    <h3>@item.FullName</h3>
+                                    <div class="price"> <span>price : </span>@item.Price.ToString("N") </div>
+                                    <p>
+                                        new
+                                        <span class="fas fa-circle"></span> @item.YearOfProduction
+                                        <span class="fas fa-circle"></span> automatic
+                                        <span class="fas fa-circle"></span> petrol
+                                        <span class="fas fa-circle"></span> 183mph
+                                    </p>
+                                    <a href="#" class="btn">check out</a>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                    else
+                    {
+                        <p>
+                            There are no vehicle at the moment
+
+                        </p>
+                    }
+
+
                 </div>
-            </section>
 
+                <div class="swiper-pagination"></div>
 
-            @*<section class="about container" id="about">
-                    <div class="about-img">
-                        <img src="~/images/vehicle-1.png" alt="" />
+            </div>
+
+        </section>*@
+
+    <section class="services" id="services">
+
+        <h1 class="heading"> our <span>services</span> </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <i class="fas fa-car"></i>
+                <h3>car selling</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
+                <a href="#" class="btn"> read more</a>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-tools"></i>
+                <h3>parts repair</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
+                <a href="#" class="btn"> read more</a>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-car-crash"></i>
+                <h3>car insurance</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
+                <a href="#" class="btn"> read more</a>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-car-battery"></i>
+                <h3>battery replacement</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
+                <a href="#" class="btn"> read more</a>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-gas-pump"></i>
+                <h3>oil change</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
+                <a href="#" class="btn"> read more</a>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 support</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, nisi.</p>
+                <a href="#" class="btn"> read more</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    @*<section class="featured" id="featured">
+
+            <h1 class="heading"> <span>featured</span> cars </h1>
+
+            <div class="swiper featured-slider">
+
+                <div class="swiper-wrapper">
+
+                    @if (Model != null && Model.Count() > 0)
+                    {
+
+                        foreach (var item in Model)
+                        {
+                            <div class="swiper-slide box">
+                                <img src="~/uploads/@item.ImageName" alt="">
+                                <div class="content">
+                                    <h3>@item.FullName</h3>
+
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="price"><strong>Price :</strong>@item.Price.ToString("N")</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="price"><strong>Engine :</strong>@item.Engine</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="price"><strong>Body Type :</strong>@item.BodyTypeName</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="price"><strong>Fuel :</strong>@item.FuelType</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="price"><strong>Model :</strong>@item.ModelName</div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="price"><strong>Doors :</strong>@item.Doors</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <a href="#" class="btn">View Details</a>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <h1 class="heading"> <span>Comming</span> Soon </h1>
+                    }
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>*@
+
+    <section class="newsletter">
+
+        <h3>subscribe for latest updates</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, suscipit.</p>
+
+        <form action="">
+            <input type="email" placeholder="enter your email">
+            <input type="submit" value="subscribe">
+        </form>
+
+    </section>
+
+    @*<section class="reviews" id="reviews">
+
+            <h1 class="heading"> client's <span>review</span> </h1>
+
+            <div class="swiper review-slider">
+
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide box">
+                        <img src="~/images/pic-1.png" alt="">
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
+                            <h3>john deo</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="about-text">
-                        <span>About Us</span>
-                        <h2>Cheap prices with <br> Quality Cars  </h2>
-                        <p>Walk with us</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </section>*@
 
-            @*<section class="parts" id="parts">
-                    <div class="heading">
-                        <span>What we offer</span>
-                        <h2>We have excellent cars</h2>
-                        <p>Visit our show room today</p>
-                    </div>
-
-                    <div class="parts-container container">
-
-                        <div class="box">
-                            <img src="~/images/vehicle-1.png" alt="" />
-                            <h3>Auto Spare Parts</h3>
-                            <span>Ksh 120.00</span>
-                            <i class='bx bx-star'>(6 Reviews)</i>
-                            <a href="#" class="btn">Buy Now</a>
-                            <a href="#" class="details">View Details</a>
+                    <div class="swiper-slide box">
+                        <img src="~/images/pic-2.png" alt="">
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
+                            <h3>john deo</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
                         </div>
-
-                        <div class="box">
-                            <img src="~/images/vehicle-2.png" alt="" />
-                            <h3>Auto Spare Parts</h3>
-                            <span>Ksh 120.00</span>
-                            <i class='bx bx-star'>(6 Reviews)</i>
-                            <a href="#" class="btn">Buy Now</a>
-                            <a href="#" class="details">View Details</a>
-                        </div>
-
-                        <div class="box">
-                            <img src="~/images/vehicle-3.png" alt="" />
-                            <h3>Auto Spare Parts</h3>
-                            <span>Ksh 120.00</span>
-                            <i class='bx bx-star'>(6 Reviews)</i>
-                            <a href="#" class="btn">Buy Now</a>
-                            <a href="#" class="details">View Details</a>
-                        </div>
-
-                        <div class="box">
-                            <img src="~/images/vehicle-4.png" alt="" />
-                            <h3>Auto Spare Parts</h3>
-                            <span>Ksh 120.00</span>
-                            <i class='bx bx-star'>(6 Reviews)</i>
-                            <a href="#" class="btn">Buy Now</a>
-                            <a href="#" class="details">View Details</a>
-                        </div>
-
-                        <div class="box">
-                            <img src="~/images/vehicle-5.png" alt="" />
-                            <h3>Auto Spare Parts</h3>
-                            <span>Ksh 120.00</span>
-                            <i class='bx bx-star'>(6 Reviews)</i>
-                            <a href="#" class="btn">Buy Now</a>
-                            <a href="#" class="details">View Details</a>
-                        </div>
-
-                        <div class="box">
-                            <img src="~/images/vehicle-6.png" alt="" />
-                            <h3>Auto Spare Parts</h3>
-                            <span>Ksh 120.00</span>
-                            <i class='bx bx-star'>(6 Reviews)</i>
-                            <a href="#" class="btn">Buy Now</a>
-                            <a href="#" class="details">View Details</a>
-                        </div>
-
                     </div>
 
-
-                </section>*@
-
-
-            @*<section class="blog" id="blog">
-                    <div class="heading">
-                        <span>Blog & News</span>
-                        <h2>Our Blog Content</h2>
-                        <p>Read our  blog today</p>
+                    <div class="swiper-slide box">
+                        <img src="~/images/pic-3.png" alt="">
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
+                            <h3>john deo</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="blog-container container">
-                        <div class="box">
-                            <img src="~/images/vehicle-6.png" alt="" />
-                            <span>Feb 14 2021</span>
-                            <h3>How to get a car at low price</h3>
-                            <p>Mr steveee</p>
-                            <a href="#" class="blog-btn">Read More<i class="bx bx-right-arrow-alt"></i></a>
+                    <div class="swiper-slide box">
+                        <img src="~/images/pic-4.png" alt="">
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
+                            <h3>john deo</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
                         </div>
-                        <div class="box">
-                            <img src="~/images/vehicle-6.png" alt="" />
-                            <span>Feb 14 2021</span>
-                            <h3>How to get a car at low price</h3>
-                            <p>Mr steveee</p>
-                            <a href="#" class="blog-btn">Read More<i class="bx bx-right-arrow-alt"></i></a>
-                        </div>
-                        <div class="box">
-                            <img src="~/images/vehicle-6.png" alt="" />
-                            <span>Feb 14 2021</span>
-                            <h3>How to get a car at low price</h3>
-                            <p>Mr steveee</p>
-                            <a href="#" class="blog-btn">Read More<i class="bx bx-right-arrow-alt"></i></a>
-                        </div>
-                        <div class="box">
-                            <img src="~/images/vehicle-6.png" alt="" />
-                            <span>Feb 14 2021</span>
-                            <h3>How to get a car at low price</h3>
-                            <p>Mr steveee</p>
-                            <a href="#" class="blog-btn">Read More<i class="bx bx-right-arrow-alt"></i></a>
-                        </div>
-
-
                     </div>
 
+                    <div class="swiper-slide box">
+                        <img src="~/images/pic-5.png" alt="">
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
+                            <h3>john deo</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
 
-                </section>*@
+                    <div class="swiper-slide box">
+                        <img src="~/images/pic-6.png" alt="">
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam incidunt quod praesentium iusto id autem possimus assumenda at ut saepe.</p>
+                            <h3>john deo</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="swiper-pagination"></div>
+
+            </div>
+
+        </section>*@
+
+    <section class="contact" id="contact">
+
+        <h1 class="heading"><span>contact</span> us</h1>
+
+        <div class="row">
+
+            <iframe class="map" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=village market&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" allowfullscreen="" loading="lazy"></iframe>
+            <form action="">
+                <h3>get in touch</h3>
+                <input type="text" placeholder="your name" class="box">
+                <input type="email" placeholder="your email" class="box">
+                <input type="tel" placeholder="subject" class="box">
+                <textarea placeholder="your message" class="box" cols="30" rows="10"></textarea>
+                <input type="submit" value="send message" class="btn">
+            </form>
+
+        </div>
+
+    </section>
 
 
-            @await Html.PartialAsync("_footer")
+    <!------footer start-------->
+    @await Html.PartialAsync("_footer")
+    <!------footer ends-------->
 
 
 
-
-            <script src="~/js/main.js"></script>
-
-
-    </body>
+</body>
 </html>
-
-<style>
-
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-        .row > div[class*='col-'] {
-            display: flex;
-        }
-</style>
-

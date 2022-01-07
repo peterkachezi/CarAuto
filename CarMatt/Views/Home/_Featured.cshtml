@@ -2,64 +2,64 @@
 <section class="icons-vehicles ">
 
 
-        @if (Model != null && Model.Count() > 0)
+    @if (Model != null && Model.Count() > 0)
+    {
+
+        @foreach (var item in Model)
         {
 
-            @foreach (var item in Model)
-            {
+            <div class="card" id="btnCard">
 
-                <div class="card" id="btnCard">
+                <a href="~/Home/VehicleDetails?Id=@item.VehicleId">
 
-                    <a href="~/Home/VehicleDetails?Id=@item.VehicleId">
+                    <img src="~/uploads/@item.ImageName" class="img-fluid" alt="Responsive image" style="height: 20em; width: 100%; border-radius: 1em; ">
 
-                        <img src="~/uploads/@item.ImageName" class="img-fluid" alt="Responsive image" style="height: 20em; width: 100%; border-radius: 1em; ">
-
-                    </a>
-                    <div class="container">
-                        <br />
-                        <h4><b>@item.FullName</b></h4>
-                        <hr />
-                        <p style="font-size:1.5em;color:tomato;">Ksh @item.Price.ToString("N")</p>
-                        <div class="row">
+                </a>
+                <div class="container">
+                    <br />
+                    <h4><b>@item.FullName</b></h4>
+                    <hr />
+                    <p style="font-size:1.5em;color:tomato;">Ksh @item.Price.ToString("N")</p>
+                    <div class="row">
 
 
-                            <div class="col-md-6">
-                                <p><strong>@item.Engine</strong></p>
-                            </div>
+                        <div class="col-md-6">
+                            <p><strong>@item.Engine</strong></p>
+                        </div>
 
-                            <div class="col-md-6">
-                                <p> <strong>@item.BodyTypeName</strong></p>
-                            </div>
+                        <div class="col-md-6">
+                            <p> <strong>@item.BodyTypeName</strong></p>
+                        </div>
 
-                            <div class="col-md-6">
-                                <p><strong>@item.YearOfProduction</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>@item.FuelType</strong></p>
-                            </div>
-
-
-
-                            <div class="col-md-6">
-                                <p><strong>@item.Passangers</strong></p>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p><strong>@item.Kilometres</strong></p>
-                            </div>
+                        <div class="col-md-6">
+                            <p><strong>@item.YearOfProduction</strong></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>@item.FuelType</strong></p>
                         </div>
 
 
+
+                        <div class="col-md-6">
+                            <p><strong>@item.Doors</strong></p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <p><strong>@item.Kilometres</strong></p>
+                        </div>
                     </div>
+
+
                 </div>
+            </div>
 
-
-            }
 
         }
 
+    }
 
-    </section>
+
+</section>
 
 
 <div class="container">
@@ -97,7 +97,7 @@
                 <div class="col-md-3">
                     <div class="card" style="width:26rem;">
                         <div class="inner">
-                            <img class="card-img-top" src="~/uploads/@item.ImageName" alt="Card image cap"   style="height: 20em; width: 100%; border-radius: 1em; ">
+                            <img class="card-img-top" src="~/uploads/@item.ImageName" alt="Card image cap" style="height: 20em; width: 100%; border-radius: 1em; ">
 
                         </div>
 
