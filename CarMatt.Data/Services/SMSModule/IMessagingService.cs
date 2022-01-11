@@ -11,5 +11,7 @@ namespace CarMatt.Data.Services.SMSModule
 
         Task<InquiryDTO> InquirySMSAlert(InquiryDTO inquiryDTO);
         Task<RegisterDTO> usersAccount(RegisterDTO registerDTO);
+
+        Task<InquiryDTO> AgentSMSAlert(InquiryDTO inquiryDTO);
     }
 }

@@ -26,7 +26,8 @@ namespace CarMatt.Data.Models
         public virtual DbSet<Inquiry> Inquiries { get; set; }
         public virtual DbSet<PartImage> PartImages { get; set; }
         public virtual DbSet<Part> Parts { get; set; }
-        public virtual DbSet<SubModel> SubModels { get; set; }
+        public virtual DbSet<SubModel> SubModels { get; set; }      
+        public virtual DbSet<Analytic> Analytics { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -149,6 +149,8 @@ namespace CarMatt.Controllers
                 {
                     var sendemail = messagingService.InquirySMSAlert(inquiryDTO);
 
+                    var sendsmsto_agent = messagingService.AgentSMSAlert(inquiryDTO);
+
                     return Json(new { success = true, responseText = "Your message has been  successfully sent" });
                 }
                 else
@@ -245,21 +247,35 @@ namespace CarMatt.Controllers
 
         public async Task<ActionResult> VehicleDetails(Guid Id)
         {
-            CombinedDTO combinedDTO = new CombinedDTO()
+            try
             {
-            };
+                if (Id == Guid.Empty)
+                {
+                    return View("Index");
+                }
 
-            combinedDTO.vehicleDTO = await vehicleService.GetById(Id);
+                CombinedDTO combinedDTO = new CombinedDTO()
+                {
+                };
 
-            combinedDTO.singleImageDTO = await carImageService.GetByCardIdSingle(Id);
+                combinedDTO.vehicleDTO = await vehicleService.GetById(Id);
 
-            combinedDTO.imageDTO = await carImageService.GetByCarId(Id);
+                combinedDTO.singleImageDTO = await carImageService.GetByCardIdSingle(Id);
 
-            var all = (await carImageService.GetAll()).Where(x => x.ModelName == combinedDTO.vehicleDTO.ModelName);
+                combinedDTO.imageDTO = await carImageService.GetByCarId(Id);
 
-            combinedDTO.similarvehicleDTO = all.GroupBy(test => test.VehicleId).Select(grp => grp.First()).ToList();
+                var all = (await carImageService.GetAll()).Where(x => x.ModelName == combinedDTO.vehicleDTO.ModelName);
 
-            return View(combinedDTO);
+                combinedDTO.similarvehicleDTO = all.GroupBy(test => test.VehicleId).Select(grp => grp.First()).ToList();
+
+                return View(combinedDTO);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
         }
     }
 }

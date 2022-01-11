@@ -25,7 +25,7 @@ namespace CarMatt.Data.Services.SMSModule
             {
                 var url = "http://167.172.14.50:4002/v1/send-sms";
 
-                var txtMessage = "Dear  " + inquiryDTO.Name + " test";
+                var txtMessage = "Dear  " + inquiryDTO.Name + " Thanks for visiting I & P Auto Motors.Your message has been received , one of our agents will get back to you shortly";
 
                 var key = config.GetValue<string>("SMS_Settings:BongaSMSKey");
 
@@ -68,6 +68,59 @@ namespace CarMatt.Data.Services.SMSModule
                 return null;
             }
         }
+
+        public async Task<InquiryDTO> AgentSMSAlert(InquiryDTO inquiryDTO)
+        {
+            try
+            {
+                var link= "https://ipautomotors.com/account/login";
+
+                var url = "http://167.172.14.50:4002/v1/send-sms";
+
+                var txtMessage = "Dear Peter, clients are waiting to attended to ! Kindly login to your portal " + link + " ";
+
+                var key = config.GetValue<string>("SMS_Settings:BongaSMSKey");
+
+                var secrete = config.GetValue<string>("SMS_Settings:BongaSMSSecrete");
+
+                var apiClientID = config.GetValue<string>("SMS_Settings:BongaSMSApiClientID");
+
+                var serviceID = config.GetValue<string>("SMS_Settings:BongaSMSServiceID");
+
+                var msisdn = formatPhoneNumber("254704509484");
+
+                var formContent = new FormUrlEncodedContent(new[]
+                {
+                new KeyValuePair<string, string>("apiClientID", apiClientID),
+                new KeyValuePair<string, string>("secret", secrete),
+                new KeyValuePair<string, string>("key", key),
+                new KeyValuePair<string, string>("txtMessage", txtMessage),
+                new KeyValuePair<string, string>("MSISDN", msisdn),
+                new KeyValuePair<string, string>("serviceID", serviceID),
+                new KeyValuePair<string, string>("enqueue", "yes"),
+            });
+
+                HttpClient client = new HttpClient();
+
+                HttpResponseMessage apiResult = await client.PostAsync(url, formContent);
+
+                apiResult.EnsureSuccessStatusCode();
+
+                var response = await apiResult.Content.ReadAsStringAsync();
+
+
+                //return new Tuple<bool, TextAlertDTO, string>(true, textAlertDTO, "Text Alert sent successfully!");
+
+                return inquiryDTO;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
         public async Task<FeedBackDTO> FeedBackSMSAlert(FeedBackDTO feedBackDTO)
         {
             try

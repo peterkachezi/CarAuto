@@ -2,6 +2,7 @@
 
 using CarMatt.Data.Models;
 using CarMatt.Data.Services.AgentModule;
+using CarMatt.Data.Services.AnalyticsModule;
 using CarMatt.Data.Services.BodyTypeModule;
 using CarMatt.Data.Services.CarMakeModule;
 using CarMatt.Data.Services.CarModelModule;
@@ -23,11 +24,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Linq;
+using System.Management;
+using System.Net;
 
 namespace CarMatt
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -52,7 +57,7 @@ namespace CarMatt
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
             ServiceLifetime.Transient);
-    
+
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, ApplicationUserClaimsPrincipalFactory>();
             services.AddScoped<IAgentService, AgentService>();
@@ -68,13 +73,14 @@ namespace CarMatt
             services.AddScoped<ISubscriptionService, SubscriptionService>();
             services.AddScoped<IInquiryService, InquiryService>();
             services.AddScoped<IPartService, PartService>();
+            services.AddScoped<IAnaltyicsService, AnaltyicsService>();
 
             services.AddControllersWithViews();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public void Configure(ApplicationDbContext context ,IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -88,6 +94,8 @@ namespace CarMatt
             }
 
             CreateRoles(roleManager);
+
+            Analytics(context);
 
             CreateRolesandUsersAsync(userManager);
 
@@ -110,7 +118,7 @@ namespace CarMatt
                 endpoints.MapControllerRoute(
                 name: "Agent",
                 pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
-                             
+
                 endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -212,5 +220,47 @@ namespace CarMatt
 
         }
 
+        private void Analytics(ApplicationDbContext context)
+        { 
+            //For IpAddrress
+            IPHostEntry iphostinfo = Dns.GetHostEntry(Dns.GetHostName());
+
+            string IpAddress = Convert.ToString(iphostinfo.AddressList.FirstOrDefault(address => address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork));
+            //For MacId
+
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+
+            ManagementObjectCollection moc = mc.GetInstances();
+
+            string MACAdress = string.Empty;
+
+            foreach (ManagementObject mo in moc)
+            {
+                if (MACAdress == string.Empty) //only return MAC Address from first card
+                {
+                    if ((bool)mo["IPEnabled"] == true) MACAdress = mo["MacAddress"].ToString();
+                }
+                mo.Dispose();
+            }
+
+            MACAdress = MACAdress.Replace(":", "-");
+
+            //Add to database
+
+            Analytic client = new Analytic();
+
+            client.Id = Guid.NewGuid();
+
+            client.MacID = MACAdress;
+
+            client.IPAddress = IpAddress;
+
+            client.AccessDate = DateTime.Now;
+
+            context.Analytics.Add(client);
+
+            context.SaveChanges();
+
+        }
     }
 }

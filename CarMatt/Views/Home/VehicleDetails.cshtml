@@ -6,7 +6,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@await Html.PartialAsync("_header")
+<header class="header">
+
+    <div id="menu-btn" class="fas fa-bars"></div>
+
+    <a href="~/home/" class="logo"> <span>I & P   </span>auto motors </a>
+
+    <nav class="navbar">
+        <a href="~/home/">home</a>
+        <a href="#cars">vehicles</a>
+        <a href="#services">services</a>
+        <a href="#featured">featured</a>
+        <a href="#reviews">reviews</a>
+        <a href="#contact">contact</a>
+    </nav>
+
+    @*<div id="login-btn">
+        <button class="btn">login</button>
+        <i class="far fa-user"></i>
+    </div>*@
+
+</header>
 
 
 
@@ -22,124 +42,123 @@
         }
         else
         {
-        <div class="col-md-6">
-            <h1>
-                <img src="~/uploads/@Model.singleImageDTO.ImageName" id="image" />
-            </h1>
+            <div class="col-md-6">
+                <h1>
+                    <img src="~/uploads/@Model.singleImageDTO.ImageName" id="image" />
+                </h1>
 
-        </div>
+            </div>
 
-        <div class="col-md-6">
+            <div class="col-md-6">
 
-            <h1 class="car-name">
-                @Model.vehicleDTO.YearOfProduction @Model.vehicleDTO.FullName 	[@Model.vehicleDTO.BodyTypeName]
-            </h1>
+                <h1 class="car-name">
+                    @Model.vehicleDTO.YearOfProduction @Model.vehicleDTO.FullName 	[@Model.vehicleDTO.BodyTypeName]
+                </h1>
 
-            <h1 class="car-price">
-                @Model.vehicleDTO.Price.ToString("N") Ksh
-            </h1>
+                <h1 class="car-price">
+                    @Model.vehicleDTO.Price.ToString("N") Ksh
+                </h1>
 
-            <div class="tables">
-                <table summary="Car Spec">
-                    <thead>
-                        <tr>
-                            <th colspan="2">Specs</th>
-                        </tr>
-                    </thead>
-
-                    @*<tfoot>
+                <div class="tables">
+                    <table summary="Car Spec">
+                        <thead>
                             <tr>
-                                <th colspan="2">Options</th>
+                                <th colspan="2" class="specs">Specs</th>
+                            </tr>
+                        </thead>
+
+                        <tfoot>
+                            <tr>
+                                @*<th colspan="2" class="specs">Options</th>*@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    Anti-Lock Brakes/Driver Airbag/Passenger Airbag/A/C:front/Power Steering/Remote Keyless Entry/Power Windows/Rear Window Defroster/Rear Window Wiper/AM/FM Radio/AM/FM Stereo/CD Player/Power Door Locks/Power Mirrors/No accidents
                                 </td>
                             </tr>
-                        </tfoot>*@
+                        </tfoot>
 
-                    <tbody>
-                        <tr>
-                            <th>Registration Year</th>
-                            <td>
-                                2006/11
-                            </td>
-                        </tr>
-                        <tr style="background-color: rgb(240, 240, 240);">
-                            <th>Odometer</th>
-                            <td>
-                                96559km
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Displacement</th>
-                            <td>
-                                1500cc
-                            </td>
-                        </tr>
-                        <tr style="background-color: rgb(240, 240, 240);">
-                            <th>Steering</th>
-                            <td>Right</td>
-                        </tr>
-                        <tr>
-                            <th>Transmission</th>
-                            <td>Automatic</td>
-                        </tr>
-                        <tr style="background-color: rgb(240, 240, 240);">
-                            <th>Fuel</th>
-                            <td>Gasoline/Petrol</td>
-                        </tr>
-                        <tr>
-                            <th>Model code</th>
-                            <td>DBA-NCP81G</td>
-                        </tr>
-                        <tr style="background-color: rgb(240, 240, 240);">
-                            <th>VIN/Serial No.</th>
-                            <td>NCP81-5018253</td>
-                        </tr>
-                        <tr>
-                            <th>BodyType</th>
-                            <td>Wagon  </td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>Registration Year</th>
+                                <td>
+                                    @Model.vehicleDTO.YearOfProduction
+                                </td>
+                            </tr>
+                            <tr style="background-color: rgb(240, 240, 240);">
+                                <th>Millage</th>
+                                <td>
+                                    @Model.vehicleDTO.Kilometres
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Engine</th>
+                                <td>
+                                    @Model.vehicleDTO.Engine
+                                </td>
+                            </tr>
+                            <tr style="background-color: rgb(240, 240, 240);">
+                                <th>Steering</th>
+                                <td>Right</td>
+                            </tr>
+                            <tr>
+                                <th>Transmission</th>
+                                <td>Automatic</td>
+                            </tr>
+                            <tr style="background-color: rgb(240, 240, 240);">
+                                <th>Fuel</th>
+                                <td>@Model.vehicleDTO.FuelType</td>
+                            </tr>
+                            <tr>
+                                <th>Model code</th>
+                                <td>DBA-NCP81G</td>
+                            </tr>
+                            <tr style="background-color: rgb(240, 240, 240);">
+                                <th>VIN/Serial No.</th>
+                                <td>NCP81-5018253</td>
+                            </tr>
+                            <tr>
+                                <th>BodyType</th>
+                                <td>@Model.vehicleDTO.BodyTypeName  </td>
+                            </tr>
 
-                        <tr style="background-color: rgb(240, 240, 240);">
-                            <th>Door</th>
-                            <td>5</td>
-                        </tr>
+                            <tr style="background-color: rgb(240, 240, 240);">
+                                <th>Door</th>
+                                <td>@Model.vehicleDTO.Doors</td>
+                            </tr>
 
-                        <tr>
-                            <th>Passengers</th>
-                            <td>7</td>
-                        </tr>
+                            @*<tr>
+                                <th>Passengers</th>
+                                <td>7</td>
+                            </tr>*@
 
-                        <tr style="background-color: rgb(240, 240, 240);">
-                            <th>Dimension</th>
+                            <tr style="background-color: rgb(240, 240, 240);">
+                                <th>Dimension</th>
 
-                            <td>
-                                4100mm ×1695mm ×1670mm (11.606m3)
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Exterior Color</th>
-                            <td>Pearl</td>
-                        </tr>
+                                <td>
+                                    4100mm ×1695mm ×1670mm (11.606m3)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Exterior Color</th>
+                                <td>Pearl</td>
+                            </tr>
 
-                        <tr style="background-color: rgb(240, 240, 240);">
-                            <th>Drive Type</th>
-                            <td>2wheel drive</td>
-                        </tr>
-                        <tr>
-                            <th>ReferenceNo</th>
-                            <td>N2021120448M-7</td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tr style="background-color: rgb(240, 240, 240);">
+                                <th>Drive Type</th>
+                                <td>2wheel drive</td>
+                            </tr>
+                            <tr>
+                                <th>ReferenceNo</th>
+                                <td>N2021120448M-7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
             </div>
-
-
-
-
-        </div>
 
         }
 
@@ -150,33 +169,77 @@
 
 </section>
 
+@*<section>
+        <div class="container">
+            <div class="card">
+                <h1>
+                    Anti-Lock Brakes/Driver Airbag/Passenger Airbag/A/C:front/Power Steering/Remote Keyless Entry/Power Windows/Rear Window Defroster/Rear Window Wiper/AM/FM Radio/AM/FM Stereo/CD Player/Power Door Locks/Power Mirrors/No accidents
+
+                </h1>
+            </div>
+
+        </div>
+    </section>*@
+
+
+
 <section>
     <div class="row">
-
         @if (Model.imageDTO != null)
-                    {
-                        foreach (var item in Model.imageDTO)
-                        {
-        <div class="col-sm-3">
-            <div class="card">
-                <img src="~/uploads/@item.ImageName" class="img-fluid" alt="Responsive image">
+        {
+            foreach (var item in Model.imageDTO)
+            {
+                <div class="col-sm-3">
+                    <div class="card">
+                        <img src="~/uploads/@item.ImageName" class="img-fluid" alt="Responsive image">
 
-            </div>
-        </div>
+                    </div>
+                </div>
 
-                        }
-                    }
-
-
+            }
+        }
     </div>
 </section>
 
+<section class="contact" id="contact">
 
+    <h1 class="heading"><span>Inquiries</span></h1>
+
+    <div class="row">
+
+        <form id="frmInquiry">
+            @*<h3>get in touch</h3>*@
+            <input type="text" placeholder="your name" class="box" name="Name" id="txtName">
+            <div class="error" id="nameErr"></div>
+
+            <input type="tel" placeholder="your phone number" class="box" name="PhoneNumber" id="txtPhoneNumber">
+
+            <textarea placeholder="your message" class="box" cols="30" rows="10" name="Message" id="txtMessage"></textarea>
+
+            <input type="button" value="send message" class="btn" id="btnSubmit" onclick="SendEmail()">
+        </form>
+
+    </div>
+
+</section>
+
+@*<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>*@
 
 
 @await Html.PartialAsync("_footer")
 
 <style>
+
+    .specs {
+        background: #e5f6ff;
+        border-top: 1px solid #b3b3b3;
+        border-bottom: 1px solid #b3b3b3;
+    }
+
 
     #image {
         object-fit: contain;
@@ -196,4 +259,115 @@
         border-spacing: 0;
         margin: 10px auto;
     }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
 </style>
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<link href="~/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/sweetalart/sweetalert.min.js"></script>
+
+<script>
+
+    // Defining a function to display error message
+    function printError(elemId, hintMsg) {
+        document.getElementById(elemId).innerHTML = hintMsg;
+    }
+
+    function SendEmail() {
+
+        if ($('#txtName').val() == '') {
+            $('#txtName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+
+        if ($('#txtPhoneNumber').val() == '') {
+            $('#txtPhoneNumber').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Phone Number is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtMessage').val() == '') {
+            $('#txtMessage').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Message is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+
+
+
+        //$("#divLoader").show();
+
+        var data = $("#frmInquiry").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Home/Inquiry",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 5000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                  /*  $("#divLoader").hide();*/
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+             /*   $("#divLoader").hide();*/
+            }
+        })
+
+    }
+</script>
